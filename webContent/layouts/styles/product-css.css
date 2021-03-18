@@ -1,0 +1,55 @@
+.product-dialog {
+	border-radius: 15px !important;
+	border-bottom: 10px solid black !important;
+	width: 400px !important;
+	height: 400px !important;
+}
+
+/* .ui-dialog-titlebar{
+	background-color: #f8a56e !important;
+} */
+
+.title-form-create {
+	text-align: center;
+	font-size:30px;
+	font-weight:bold;
+	font-family: fantasy;
+	border-bottom: 1px solid black;
+	margin-bottom: 35px;
+}
+
+.create-name {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.create-cost {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.select-category {
+	margin-left: 50px;
+	margin-bottom: 35px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.select-menu {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.button-create {
+	margin-bottom: 15px;
+	margin-left: 130px;
+}
+
+.id-column {
+	
+}
+

@@ -1,0 +1,33 @@
+# general
+Thumbs.db
+.DS_Store
+*~
+*.log
+*/settings
+
+# java
+*.class
+hs_err_pid*
+
+# maven
+target/
+
+# ivy
+classes/
+src_dataClasses/
+src_wsproc/
+.project
+.classpath
+.settings
+*.project
+*.classpath
+*.settings
+/.project
+/.classpath
+/.settings
+.project/
+.classpath/
+.settings/
+*.project/
+*.classpath/
+*.settings/

@@ -1,0 +1,6 @@
+ProductData #class
+test.connection #namespace
+product model.Product #field
+product PERSISTENT #fieldModifier
+products java.util.List<model.Product> #field
+products PERSISTENT #fieldModifier
