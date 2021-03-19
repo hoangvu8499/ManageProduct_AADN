@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transaction;
+
 //import javax.persistence.TypedQuery;
 //import javax.persistence.criteria.CriteriaBuilder;
 //import javax.persistence.criteria.CriteriaQuery;
@@ -30,13 +32,18 @@ public class ProductDao {
 
 	public void save(Product product) {
 		getEM().getTransaction().begin();
-		if (product.getId() == null) {
-			getEM().persist(product);
-			getEM().getTransaction().commit();
-			getEM().close();
-		} else {
-			getEM().merge(product);
-			getEM().getTransaction().commit();
+		try{
+			if (product.getId() == null) {
+				getEM().persist(product);
+				getEM().getTransaction().commit();
+			} else {
+				getEM().merge(product);
+				getEM().getTransaction().commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			getEM().close();
 		}
 	}

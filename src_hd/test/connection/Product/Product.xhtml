@@ -47,53 +47,57 @@
 										actionListener="#{logic.save(product)}" id="saveButton" />
 								</p:panelGrid>
 							</p:rowExpansion> -->
-								<p:column  headerText="No" styleClass="id-column" id="scoreId">
-									<p:outputLabel value="#{product.id}" />
-								</p:column>
-							
-								<p:column headerText="Name" styleClass="name-column" filterMatchMode="contains"
-									filterBy="#{product.name}" style="width:200px">
-									<p:outputLabel id="colName" value="#{product.name}" />
-								</p:column>
-							
-								<p:column headerText="Cost" styleClass="cost-column" filterMatchMode="contains"
-									filterBy="#{product.cost}" style="width:200px">
-									<p:outputLabel id="colcost" value="#{product.cost}" />
-								</p:column>
-							
-								<p:column field="category" styleClass="category-column" headerText="Category"
-									filterMatchMode="exact" filterBy="#{product.category}">
-									<f:facet name="filter">
-										<p:selectOneMenu onchange="PF('theTable').filter()">
-											<f:selectItem itemLabel="All" itemValue="#{null}"
-												noSelectionOption="true" />
-											<f:selectItems value="#{data.categories}" var="category"
-												itemLabel="#{category.name}" itemValue="#{category}" />
-										</p:selectOneMenu>
-									</f:facet>
-									<p:outputLabel id="colCost" value="#{product.category.name}" />
-								</p:column>
-							
-								<p:column headerText="Action" styleClass="action-column" style="width:200px">
-									<p:commandButton icon="ui-icon-trash" title="Delete this actor"
-										update="@form" actionListener="#{logic.delete(product)}"
-										id="deleteButton" ajax="false" />
-								</p:column>
+							<p:column headerText="No" styleClass="id-column" id="scoreId">
+								<p:outputLabel value="#{product.id}" />
+							</p:column>
+
+							<p:column headerText="Name" styleClass="name-column"
+								filterMatchMode="contains" filterBy="#{product.name}"
+								style="width:200px">
+								<p:outputLabel id="colName" value="#{product.name}" />
+							</p:column>
+
+							<p:column headerText="Cost" styleClass="cost-column"
+								filterMatchMode="contains" filterBy="#{product.cost}"
+								style="width:200px">
+								<p:outputLabel id="colcost" value="#{product.cost}" />
+							</p:column>
+
+							<p:column field="category" styleClass="category-column"
+								headerText="Category" filterMatchMode="exact"
+								filterBy="#{product.category}">
+								<f:facet name="filter">
+									<p:selectOneMenu onchange="PF('theTable').filter()">
+										<f:selectItem itemLabel="All" itemValue="#{null}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{data.categories}" var="category"
+											itemLabel="#{category.name}" itemValue="#{category}" />
+									</p:selectOneMenu>
+								</f:facet>
+								<p:outputLabel id="colCost" value="#{product.category.name}" />
+							</p:column>
+
+							<p:column headerText="Action" styleClass="action-column"
+								style="width:200px">
+								<p:commandButton icon="ui-icon-trash" title="Delete this actor"
+									update="@form" actionListener="#{logic.delete(product)}"
+									id="deleteButton" ajax="false" />
+							</p:column>
 						</p:dataTable>
 
 					</div>
 				</div>
 
 
-
 				<p:dialog id="formCreate" widgetVar="dlg" modal="true"
 					styleClass="product-dialog">
 					<div class="title-form-create">CREATE PRODUCT</div>
-									<p:messages id="msgs" />
-					
+					<p:messages id="msgs" />
+
 					<div class="create-name">
 						<p:outputLabel for="nameCreate">Name: </p:outputLabel>
-						<p:inputText value="#{data.product.name}" required="true" id="nameCreate" />
+						<p:inputText value="#{data.product.name}" 
+							id="nameCreate" />
 						<p:message for="nameCreate" display="icon" id="nameMessage" />
 					</div>
 					<div class="create-cost">
@@ -106,7 +110,6 @@
 							<p:outputLabel value="Category: " for="group" />
 							<p:selectOneMenu styleClass="select-menu" id="group"
 								value="#{data.product.category}" converter="pojoConverter">
-								<f:selectItem itemLabel="Select One" itemValue="" />
 								<f:selectItems value="#{data.categories}" var="category"
 									itemLabel="#{category.name}" itemValue="#{category}" />
 							</p:selectOneMenu>
@@ -114,7 +117,8 @@
 					</div>
 					<div class="button-create">
 						<p:commandButton id="save" value="Save" update="@form"
-							actionListener="#{logic.createProduct(data.product)}" />
+							actionListener="#{logic.createProduct(data.product)}">
+						</p:commandButton>
 					</div>
 				</p:dialog>
 

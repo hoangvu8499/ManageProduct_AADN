@@ -57,11 +57,11 @@ Ps0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f3 51 579 26 26 -15 15 #rect
+Ps0 f3 51 507 26 26 -15 15 #rect
 Ps0 f3 @|UdEventIcon #fIcon
-Ps0 f4 219 579 26 26 0 12 #rect
+Ps0 f4 219 507 26 26 0 12 #rect
 Ps0 f4 @|UdExitEndIcon #fIcon
-Ps0 f5 77 592 219 592 #arcP
+Ps0 f5 77 520 219 520 #arcP
 Ps0 f6 actionTable 'out=in;
 ' #txt
 Ps0 f6 actionCode 'import dao.CategoryDao;
@@ -145,9 +145,9 @@ Ps0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f13 168 442 112 44 -17 -8 #rect
+Ps0 f13 168 402 112 44 -17 -8 #rect
 Ps0 f13 @|StepIcon #fIcon
-Ps0 f14 403 451 26 26 0 12 #rect
+Ps0 f14 403 411 26 26 0 12 #rect
 Ps0 f14 @|UdProcessEndIcon #fIcon
 Ps0 f15 guid 1783ACCAC40FC41F #txt
 Ps0 f15 method delete(model.Product) #txt
@@ -162,10 +162,10 @@ Ps0 f15 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f15 51 451 26 26 -25 15 #rect
+Ps0 f15 51 411 26 26 -25 15 #rect
 Ps0 f15 @|UdMethodIcon #fIcon
-Ps0 f16 77 464 168 464 #arcP
-Ps0 f17 280 464 403 464 #arcP
+Ps0 f16 77 424 168 424 #arcP
+Ps0 f17 280 424 403 424 #arcP
 Ps0 f18 actionTable 'out=in;
 ' #txt
 Ps0 f18 actionCode 'import org.primefaces.context.RequestContext;
@@ -180,18 +180,22 @@ CategoryDao categoryDao = new dao.CategoryDao();
 ProductDao dao = new dao.ProductDao();
 
 //Validation Product
-//if(in.product.name.isBlank() || in.product.cost <0){
-//	FacesContext.getCurrentInstance().addMessage(null, 
-//					new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_FATAL, 
-//					"Fatal Message","Fatal Message"));
-//}
+if(in.product.name.isEmpty() || in.product.cost==null || in.product.category.getId()==null){
+	FacesContext.getCurrentInstance().addMessage(null, 
+					new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_FATAL, 
+					"Name Or Cost is Null","Fatal Message"));
+    RequestContext.getCurrentInstance().execute("PF(''dlg'').show()");
 
-in.product.active = true;
-dao.save(in.product);
-out.product = new Product();
-
-in.products = dao.getAll();
-in.categories = categoryDao.getAll();
+}else{
+	
+	in.product.active = true;
+	dao.save(in.product);
+	out.product = new Product();
+	
+	in.products = dao.getAll();
+	in.categories = categoryDao.getAll();
+	
+}
 
 //RequestContext.getCurrentInstance().execute("PF(''dlg'').hide()");
 ' #txt
