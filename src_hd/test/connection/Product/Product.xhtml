@@ -10,7 +10,7 @@
 	<ui:composition template="/layouts/basic-8.xhtml">
 		<ui:define name="title">adminStore</ui:define>
 		<ui:define name="content">
-			<h:form id="bigForm">
+			<h:form id="form">
 				<div class="ui-g">
 					<div class="ui-g-12">
 						<h3>ALL PRODUCT</h3>
@@ -21,32 +21,12 @@
 								value="Create Product" onclick="PF('dlg').show();" />
 						</div>
 					</div>
-					<div class="ui-g-12">
+					<div class="table">
 						<p:dataTable id="theTable" widgetVar="theTable" paginator="true"
 							paginatorPosition="bottom"
 							rowsPerPageTemplate="6,8,10,{ShowAll|'All'}" filterEvent="enter"
-							value="#{data.products}" var="product" rows="8">
+							value="#{data.products}" var="product">
 
-							<!-- 			<p:column style="width:16px">
-								<p:rowToggler />
-							</p:column>
-
-							<p:rowExpansion>
-								<p:panelGrid columns="2" style="width:400px">
-									<p:outputLabel>ID</p:outputLabel>
-									<p:inputText value="#{product.id}" disabled="true" />
-									<p:outputLabel for="name">Name</p:outputLabel>
-									<p:inputText id="name" value="#{product.name}" required="true" />
-									<p:outputLabel for="cost">Cost</p:outputLabel>
-									<p:inputText id="cost" value="#{product.cost}" required="true" />
-									<p:outputLabel for="createBy">CreateBy</p:outputLabel>
-									<p:inputText id="createBy" value="#{product.createdBy}"
-										disabled="true" required="true" />
-									<p:outputLabel for="createBy">Action</p:outputLabel>
-									<p:commandButton value="Edit" update="@form"
-										actionListener="#{logic.save(product)}" id="saveButton" />
-								</p:panelGrid>
-							</p:rowExpansion> -->
 							<p:column headerText="No" styleClass="id-column" id="scoreId">
 								<p:outputLabel value="#{product.id}" />
 							</p:column>
@@ -77,11 +57,18 @@
 								<p:outputLabel id="colCost" value="#{product.category.name}" />
 							</p:column>
 
-							<p:column headerText="Action" styleClass="action-column"
-								style="width:200px">
-								<p:commandButton icon="ui-icon-trash" title="Delete this actor"
-									update="@form" actionListener="#{logic.delete(product)}"
-									id="deleteButton" ajax="false" />
+							<p:column headerText="Action" styleClass="action-column">
+
+								<p:commandButton update=":form:productDetail"
+									onclick="PF('editDialog').show();" icon="ui-icon-edit"
+									title="Edit this Product">
+									<f:setPropertyActionListener value="#{product}"
+										target="#{data.editProduct}" />
+								</p:commandButton>
+								<p:commandButton styleClass="action-button-delete"
+									icon="ui-icon-trash" title="Delete this Product" update="@form"
+									actionListener="#{logic.delete(product)}" id="deleteButton"
+									ajax="false" />
 							</p:column>
 						</p:dataTable>
 
@@ -96,8 +83,7 @@
 
 					<div class="create-name">
 						<p:outputLabel for="nameCreate">Name: </p:outputLabel>
-						<p:inputText value="#{data.product.name}" 
-							id="nameCreate" />
+						<p:inputText value="#{data.product.name}" id="nameCreate" />
 						<p:message for="nameCreate" display="icon" id="nameMessage" />
 					</div>
 					<div class="create-cost">
@@ -120,6 +106,41 @@
 							actionListener="#{logic.createProduct(data.product)}">
 						</p:commandButton>
 					</div>
+				</p:dialog>
+
+				<p:dialog id="editForm" widgetVar="editDialog" modal="true"
+					styleClass="product-dialog">
+					<div class="title-form-edit">EDIT PRODUCT</div>
+
+					<p:outputPanel id="productDetail">
+						<div class="edit-id">
+							<p:outputLabel>ID: </p:outputLabel>
+							<p:inputText disabled="true" value="#{data.editProduct.id}" />
+						</div>
+						<div class="edit-name">
+							<p:outputLabel>Name: </p:outputLabel>
+							<p:inputText value="#{data.editProduct.name}" />
+						</div>
+						<div class="edit-cost">
+							<p:outputLabel>Cost: </p:outputLabel>
+							<p:inputText value="#{data.editProduct.cost}" />
+						</div>
+						<div class="edit-category">
+							<p:outputLabel>Category: </p:outputLabel>
+							<p:selectOneMenu value="#{data.editProduct.category}"
+								converter="pojoConverter">
+								<f:selectItems value="#{data.categories}" var="category"
+									itemLabel="#{category.name}" itemValue="#{category}" />
+							</p:selectOneMenu>
+						</div>
+
+						<div class="button-edit">
+							<p:commandButton value="Edit" update="@form"
+								actionListener="#{logic.save(data.editProduct)}" />
+						</div>
+
+					</p:outputPanel>
+
 				</p:dialog>
 
 			</h:form>

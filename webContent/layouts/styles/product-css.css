@@ -8,11 +8,15 @@
 /* .ui-dialog-titlebar{
 	background-color: #f8a56e !important;
 } */
+.table {
+	width: 80%;
+	border: 2px solid black;
+}
 
 .title-form-create {
 	text-align: center;
-	font-size:30px;
-	font-weight:bold;
+	font-size: 30px;
+	font-weight: bold;
 	font-family: fantasy;
 	border-bottom: 1px solid black;
 	margin-bottom: 35px;
@@ -49,7 +53,95 @@
 	margin-left: 130px;
 }
 
-.id-column {
-	
+.button-edit {
+	margin-bottom: 15px;
+	margin-left: 130px;
 }
 
+/*  Class nay cua cai headerText table
+ */
+.ui-state-default {
+	font-size: 18px;
+	text-align: center !important;
+}
+
+.ui-messages-fatal {
+	background-color: #ff0000 !important;
+}
+
+.id-column {
+	width: 10%;
+	margin: 2% !important;
+	text-align: center;
+}
+
+.name-column {
+	width: 20% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.cost-column {
+	width: 20% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.category-column {
+	width: 20% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.action-column {
+	width: 15%;
+	margin-right: 3% !important; padding-left : 10px !important;
+	text-align: center;
+	padding-left: 10px !important;
+}
+
+.action-button-edit {
+	margin-left: 10px !important;
+}
+
+.title-form-edit {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: fantasy;
+	border-bottom: 1px solid black;
+	margin-bottom: 35px;
+}
+
+.edit-id {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-name {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-cost {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-category {
+	margin-left: 50px;
+	margin-bottom: 35px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.select-menu {
+	font-size: 15px;
+	font-weight: bold;
+}

@@ -40,7 +40,6 @@ public class ProductDao {
 				getEM().merge(product);
 				getEM().getTransaction().commit();
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

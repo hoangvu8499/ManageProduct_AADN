@@ -6,3 +6,5 @@ product model.Product #field
 product PERSISTENT #fieldModifier
 categories java.util.List<model.Category> #field
 categories PERSISTENT #fieldModifier
+editProduct model.Product #field
+editProduct PERSISTENT #fieldModifier

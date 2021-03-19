@@ -59,16 +59,16 @@ Ps0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Ps0 f3 51 507 26 26 -15 15 #rect
 Ps0 f3 @|UdEventIcon #fIcon
-Ps0 f4 219 507 26 26 0 12 #rect
+Ps0 f4 411 507 26 26 0 12 #rect
 Ps0 f4 @|UdExitEndIcon #fIcon
-Ps0 f5 77 520 219 520 #arcP
+Ps0 f5 77 520 411 520 #arcP
 Ps0 f6 actionTable 'out=in;
 ' #txt
 Ps0 f6 actionCode 'import dao.CategoryDao;
 import dao.ProductDao;
 import model.Product;
 out.product = new Product();
-
+out.editProduct = new Product();
 ProductDao productDao = new dao.ProductDao();
 CategoryDao categoryDao = new dao.CategoryDao();
 in.products = productDao.getAll();
@@ -101,26 +101,43 @@ Ps0 f8 51 179 26 26 -25 15 #rect
 Ps0 f8 @|UdMethodIcon #fIcon
 Ps0 f9 actionTable 'out=in;
 ' #txt
-Ps0 f9 actionCode 'import dao.CategoryDao;
+Ps0 f9 actionCode 'import org.primefaces.context.RequestContext;
+import javax.faces.context.FacesContext;
+import dao.CategoryDao;
+import model.Category;
 import dao.ProductDao;
 import model.Product;
-import CategoryDao;
+import javax.faces.application.FacesMessage;
 
 CategoryDao categoryDao = new dao.CategoryDao();
 ProductDao dao = new dao.ProductDao();
 
-dao.save(in.product);
-out.product = new Product();
-in.categories = categoryDao.getAll();
-' #txt
+//Validation Product
+if(in.product.name.isEmpty() || in.product.cost==null){
+	FacesContext.getCurrentInstance().addMessage(null, 
+					new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_FATAL, 
+					"Name Or Cost is Null","Fatal Message"));
+    RequestContext.getCurrentInstance().execute("PF(''dlg'').show()");
+
+}else{
+	
+	in.product.active = true;
+	dao.save(in.product);
+	out.product = new Product();
+	
+	in.products = dao.getAll();
+	in.categories = categoryDao.getAll();
+	
+}' #txt
 Ps0 f9 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
-        <name>save</name>
+        <name>Edit&#13;
+</name>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f9 176 170 112 44 -13 -8 #rect
+Ps0 f9 176 170 112 44 -10 -16 #rect
 Ps0 f9 @|StepIcon #fIcon
 Ps0 f10 411 179 26 26 0 12 #rect
 Ps0 f10 @|UdProcessEndIcon #fIcon
@@ -128,7 +145,8 @@ Ps0 f11 77 192 176 192 #arcP
 Ps0 f12 288 192 411 192 #arcP
 Ps0 f13 actionTable 'out=in;
 ' #txt
-Ps0 f13 actionCode 'import dao.CategoryDao;
+Ps0 f13 actionCode 'import model.Product;
+import dao.CategoryDao;
 import dao.ProductDao;
 
 CategoryDao categoryDao = new dao.CategoryDao();
@@ -137,7 +155,9 @@ ProductDao dao = new dao.ProductDao();
 in.product.active=false;
 dao.save(in.product);
 in.products = dao.getAll();
-in.categories = categoryDao.getAll();' #txt
+in.categories = categoryDao.getAll();
+out.product = new Product();
+' #txt
 Ps0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
@@ -145,7 +165,7 @@ Ps0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f13 168 402 112 44 -17 -8 #rect
+Ps0 f13 184 402 112 44 -17 -8 #rect
 Ps0 f13 @|StepIcon #fIcon
 Ps0 f14 403 411 26 26 0 12 #rect
 Ps0 f14 @|UdProcessEndIcon #fIcon
@@ -164,8 +184,8 @@ Ps0 f15 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Ps0 f15 51 411 26 26 -25 15 #rect
 Ps0 f15 @|UdMethodIcon #fIcon
-Ps0 f16 77 424 168 424 #arcP
-Ps0 f17 280 424 403 424 #arcP
+Ps0 f16 77 424 184 424 #arcP
+Ps0 f17 296 424 403 424 #arcP
 Ps0 f18 actionTable 'out=in;
 ' #txt
 Ps0 f18 actionCode 'import org.primefaces.context.RequestContext;
@@ -180,7 +200,7 @@ CategoryDao categoryDao = new dao.CategoryDao();
 ProductDao dao = new dao.ProductDao();
 
 //Validation Product
-if(in.product.name.isEmpty() || in.product.cost==null || in.product.category.getId()==null){
+if(in.product.name.isEmpty() || in.product.cost==null){
 	FacesContext.getCurrentInstance().addMessage(null, 
 					new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_FATAL, 
 					"Name Or Cost is Null","Fatal Message"));
@@ -202,11 +222,11 @@ if(in.product.name.isEmpty() || in.product.cost==null || in.product.category.get
 Ps0 f18 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
-        <name>save</name>
+        <name>Create</name>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f18 192 290 112 44 -13 -8 #rect
+Ps0 f18 184 290 112 44 -18 -8 #rect
 Ps0 f18 @|StepIcon #fIcon
 Ps0 f19 419 299 26 26 0 12 #rect
 Ps0 f19 @|UdProcessEndIcon #fIcon
@@ -225,8 +245,8 @@ Ps0 f20 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Ps0 f20 51 299 26 26 -25 15 #rect
 Ps0 f20 @|UdMethodIcon #fIcon
-Ps0 f22 304 312 419 312 #arcP
-Ps0 f23 77 312 192 312 #arcP
+Ps0 f22 296 312 419 312 #arcP
+Ps0 f23 77 312 184 312 #arcP
 >Proto Ps0 .type test.connection.Product.ProductData #txt
 >Proto Ps0 .processKind HTML_DIALOG #txt
 >Proto Ps0 -8 -8 16 16 16 26 #rect
