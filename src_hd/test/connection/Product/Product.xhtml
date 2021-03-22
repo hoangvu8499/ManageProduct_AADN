@@ -18,13 +18,14 @@
 					<div class="ui-g-12">
 						<div class="ui-g-2">
 							<p:commandButton id="btn" type="button" icon="ui-icon-edit"
-								value="Create Product" onclick="PF('dlg').show();" />
+								value="Create Product" onclick="PF('dlg').show();"
+								update="formCreate" />
 						</div>
 					</div>
 					<div class="table">
 						<p:dataTable id="theTable" widgetVar="theTable" paginator="true"
 							paginatorPosition="bottom"
-							rowsPerPageTemplate="6,8,10,{ShowAll|'All'}" filterEvent="enter"
+							rowsPerPageTemplate="{ShowAll|'All'},6,8,10" filterEvent="enter"
 							value="#{data.products}" var="product">
 
 							<p:column headerText="No" styleClass="id-column" id="scoreId">
@@ -58,10 +59,9 @@
 							</p:column>
 
 							<p:column headerText="Action" styleClass="action-column">
-
-								<p:commandButton update=":form:productDetail"
+								<p:commandButton update=":editForm:productDetail"
 									onclick="PF('editDialog').show();" icon="ui-icon-edit"
-									title="Edit this Product">
+									title="Edit this Product" >
 									<f:setPropertyActionListener value="#{product}"
 										target="#{data.editProduct}" />
 								</p:commandButton>
@@ -74,22 +74,20 @@
 
 					</div>
 				</div>
-
-
-				<p:dialog id="formCreate" widgetVar="dlg" modal="true"
-					styleClass="product-dialog">
+			</h:form>
+			
+			<p:dialog id="formCreate" widgetVar="dlg" modal="true"
+				styleClass="product-dialog" appendTo="@(body)" width="60%">
+				<h:form id="createForm">
 					<div class="title-form-create">CREATE PRODUCT</div>
-					<p:messages id="msgs" />
-
+					<p:messages />
 					<div class="create-name">
 						<p:outputLabel for="nameCreate">Name: </p:outputLabel>
 						<p:inputText value="#{data.product.name}" id="nameCreate" />
-						<p:message for="nameCreate" display="icon" id="nameMessage" />
 					</div>
 					<div class="create-cost">
 						<p:outputLabel for="costCreate">Cost: </p:outputLabel>
 						<p:inputText value="#{data.product.cost}" id="costCreate" />
-						<p:message for="costCreate" display="icon" id="costMessage" />
 					</div>
 					<div class="select-category">
 						<div class="selectMenu">
@@ -102,15 +100,22 @@
 						</div>
 					</div>
 					<div class="button-create">
-						<p:commandButton id="save" value="Save" update="@form"
+						<p:commandButton id="save" value="Save" update="createForm"
 							actionListener="#{logic.createProduct(data.product)}">
 						</p:commandButton>
+						<p:commandButton id="close" value="Close"
+							oncomplete="PF('dlg').hide();" process="@this">
+						</p:commandButton>
 					</div>
-				</p:dialog>
+				</h:form>
+			</p:dialog>
 
-				<p:dialog id="editForm" widgetVar="editDialog" modal="true"
-					styleClass="product-dialog">
+			<p:dialog id="dlgEdit" widgetVar="editDialog" modal="true"
+				styleClass="product-dialog" appendTo="@(body)">
+				
+				<h:form id="editForm">
 					<div class="title-form-edit">EDIT PRODUCT</div>
+					<p:messages />
 
 					<p:outputPanel id="productDetail">
 						<div class="edit-id">
@@ -135,19 +140,16 @@
 						</div>
 
 						<div class="button-edit">
-							<p:commandButton value="Edit" update="@form"
+							<p:commandButton value="Edit" update="editForm"
 								actionListener="#{logic.save(data.editProduct)}" />
 						</div>
 
 					</p:outputPanel>
-
-				</p:dialog>
-
-			</h:form>
-
+				</h:form>
+			</p:dialog>
+			
 		</ui:define>
 		<br />
-
 	</ui:composition>
 </h:body>
 </html>
