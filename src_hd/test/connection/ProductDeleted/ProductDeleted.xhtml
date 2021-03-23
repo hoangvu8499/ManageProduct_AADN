@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+	<ui:composition template="/layouts/adminlayout.xhtml">
+		<ui:define name="title">adminStore</ui:define>
+		<ui:define name="content">
+			<h:form id="form">
+				<div class="ui-g">
+					<div class="table">
+						<p:messages />
+						<p:dataTable id="theTable" widgetVar="theTable" paginator="true"
+							paginatorPosition="bottom"
+							rowsPerPageTemplate="{ShowAll|'All'},6,8,10" filterEvent="enter"
+							value="#{data.listDeleted}" var="product">
+
+							<p:column headerText="No" styleClass="id-column" id="scoreId">
+								<p:outputLabel value="#{product.id}" />
+							</p:column>
+
+							<p:column headerText="Name" styleClass="name-column"
+								filterMatchMode="contains" filterBy="#{product.name}"
+								style="width:200px">
+								<p:outputLabel id="colName" value="#{product.name}" />
+							</p:column>
+
+							<p:column headerText="Cost" styleClass="cost-column"
+								filterMatchMode="contains" filterBy="#{product.cost}"
+								style="width:200px">
+								<p:outputLabel id="colcost" value="#{product.cost}" />
+							</p:column>
+
+							<p:column headerText="Revert Product" styleClass="action-column">
+								<p:commandButton icon="fa fa-refresh"
+									title="Revert this Product" update="@form"
+									actionListener="#{logic.revert(product)}" id="deleteButton"
+									ajax="false" />
+							</p:column>
+						</p:dataTable>
+
+					</div>
+				</div>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

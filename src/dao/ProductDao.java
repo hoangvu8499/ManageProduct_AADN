@@ -3,6 +3,8 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 //import javax.persistence.TypedQuery;
 //import javax.persistence.criteria.CriteriaBuilder;
 //import javax.persistence.criteria.CriteriaQuery;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import org.hibernate.jpa.HibernateEntityManager;
 
+import model.Category;
 import model.Product;
 
 public class ProductDao {
@@ -23,14 +26,14 @@ public class ProductDao {
 
 	public List<Product> getAll() {
 		List<Product> listProduct = new ArrayList<>();
-		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.active=true ", Product.class)
+		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted=null ", Product.class)
 				.getResultList();
 		return listProduct;
 	}
 
 	public void save(Product product) {
 		getEM().getTransaction().begin();
-		try{
+		try {
 			if (product.getId() == null) {
 				getEM().persist(product);
 				getEM().getTransaction().commit();
@@ -50,6 +53,27 @@ public class ProductDao {
 		Product product = getEM().find(Product.class, id);
 		getEM().getTransaction().commit();
 		return product;
+	}
+
+	public Boolean checkExist(Product product) {
+		List<Product> listProduct = new ArrayList<>();
+		Query query = getEM().createQuery(
+				"SELECT p FROM Product p WHERE p.name = :name and p.category.id = :idCategory and p.deleted=null ",
+				Product.class);
+		query.setParameter("name", product.getName());
+		query.setParameter("idCategory", product.getCategory().getId());
+		listProduct = query.getResultList();
+		if(listProduct.size() > 0) {
+			return false;
+		}
+		return true;
+	}
+	
+	public List<Product> getProductDeleted() {
+		List<Product> listProduct = new ArrayList<>();
+		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted!=null ", Product.class)
+				.getResultList();
+		return listProduct;
 	}
 
 //	public List<Product> getAllPart2() {

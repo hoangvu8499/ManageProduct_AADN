@@ -122,14 +122,19 @@ if(in.product.name.isEmpty()){
 
 }else{
 	
-	in.product.active = true;
-	dao.save(in.product);
-	out.product = new Product();
-	
-	in.products = dao.getAll();
-	in.categories = categoryDao.getAll();
-	RequestContext.getCurrentInstance().execute("PF(''editDialog'').hide()");
-	RequestContext.getCurrentInstance().update("form");
+	if(dao.checkExist(in.product) == false){
+		FacesContext.getCurrentInstance().addMessage("form:messageEdit",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_EXISTS,
+			MessageUtil.MESSAGE_PRODUCT_EXISTS));
+	}else{
+		dao.save(in.product);
+		out.product = new Product();
+		
+		in.products = dao.getAll();
+		in.categories = categoryDao.getAll();
+		RequestContext.getCurrentInstance().execute("PF(''editDialog'').hide()");
+		RequestContext.getCurrentInstance().update("form");
+	}
 	
 }' #txt
 Ps0 f9 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -155,7 +160,7 @@ import dao.ProductDao;
 CategoryDao categoryDao = new dao.CategoryDao();
 
 ProductDao dao = new dao.ProductDao();
-in.product.active=false;
+in.product.deleted = new Date();
 dao.save(in.product);
 in.products = dao.getAll();
 in.categories = categoryDao.getAll();
@@ -210,15 +215,18 @@ if(in.product.name.isEmpty()){
 			MessageUtil.MESSAGE_PRODUCT_NAME_IS_NULL));
 //  RequestContext.getCurrentInstance().execute("PF(''dlg'').show()");
 }else{
-	
-	in.product.active = true;
-	dao.save(in.product);
-	out.product = new Product();
-	
-	in.products = dao.getAll();
-	in.categories = categoryDao.getAll();
-	RequestContext.getCurrentInstance().execute("PF(''dlg'').hide()");
-	RequestContext.getCurrentInstance().update("form");
+	if(dao.checkExist(in.product) == false){
+		FacesContext.getCurrentInstance().addMessage("form:messageCreate",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_EXISTS,
+			MessageUtil.MESSAGE_PRODUCT_EXISTS));
+	}else{
+		dao.save(in.product);
+		out.product = new Product();
+		in.products = dao.getAll();
+		in.categories = categoryDao.getAll();
+		RequestContext.getCurrentInstance().execute("PF(''dlg'').hide()");
+		RequestContext.getCurrentInstance().update("form");	
+	}
 	
 }
 

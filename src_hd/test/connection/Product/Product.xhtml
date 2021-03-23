@@ -7,14 +7,11 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <h:body>
-	<ui:composition template="/layouts/basic-8.xhtml">
+	<ui:composition template="/layouts/adminlayout.xhtml">
 		<ui:define name="title">adminStore</ui:define>
 		<ui:define name="content">
 			<h:form id="form">
 				<div class="ui-g">
-					<div class="ui-g-12">
-						<h3>ALL PRODUCT</h3>
-					</div>
 					<div class="ui-g-12">
 						<div class="ui-g-2">
 							<p:commandButton id="btn" type="button" icon="ui-icon-edit"
@@ -23,10 +20,19 @@
 						</div>
 					</div>
 					<div class="table">
+
 						<p:dataTable id="theTable" widgetVar="theTable" paginator="true"
 							paginatorPosition="bottom"
 							rowsPerPageTemplate="{ShowAll|'All'},6,8,10" filterEvent="enter"
 							value="#{data.products}" var="product">
+
+							<f:facet name="header">
+								<p:outputPanel styleClass="search">
+									<h:outputText value="Find: " />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('theTable').filter()" placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
 
 							<p:column headerText="No" styleClass="id-column" id="scoreId">
 								<p:outputLabel value="#{product.id}" />
@@ -61,7 +67,7 @@
 							<p:column headerText="Action" styleClass="action-column">
 								<p:commandButton update=":editForm:productDetail"
 									onclick="PF('editDialog').show();" icon="ui-icon-edit"
-									title="Edit this Product" >
+									title="Edit this Product">
 									<f:setPropertyActionListener value="#{product}"
 										target="#{data.editProduct}" />
 								</p:commandButton>
@@ -75,7 +81,7 @@
 					</div>
 				</div>
 			</h:form>
-			
+
 			<p:dialog id="formCreate" widgetVar="dlg" modal="true"
 				styleClass="product-dialog" appendTo="@(body)" width="60%">
 				<h:form id="createForm">
@@ -112,7 +118,7 @@
 
 			<p:dialog id="dlgEdit" widgetVar="editDialog" modal="true"
 				styleClass="product-dialog" appendTo="@(body)">
-				
+
 				<h:form id="editForm">
 					<div class="title-form-edit">EDIT PRODUCT</div>
 					<p:messages />
@@ -142,12 +148,15 @@
 						<div class="button-edit">
 							<p:commandButton value="Edit" update="editForm"
 								actionListener="#{logic.save(data.editProduct)}" />
+							<p:commandButton id="close" value="Close"
+								oncomplete="PF('editDialog').hide();" process="@this">
+							</p:commandButton>
 						</div>
 
 					</p:outputPanel>
 				</h:form>
 			</p:dialog>
-			
+
 		</ui:define>
 		<br />
 	</ui:composition>

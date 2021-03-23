@@ -5,6 +5,31 @@
 	height: 400px !important;
 }
 
+.content-sidebar {
+	width: 100%;
+	display: flex !important;
+}
+
+.sidebar {
+	width: 20%;
+	height: max-content;
+	border: 2px solid black;
+	margin-top: 8%;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+.title-menu {
+	padding-left: 40%;
+	padding-top: 5%;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.container {
+	width: 80% !important;
+}
+
 .table {
 	width: 80%;
 	border: 2px solid black;
@@ -15,7 +40,7 @@
 	font-size: 30px;
 	font-weight: bold;
 	font-family: fantasy;
-	color:#1139eb;
+	color: #1139eb;
 	border-bottom: 1px solid black;
 	margin-bottom: 35px;
 }
@@ -58,17 +83,18 @@
 
 /*  Class nay cua cai headerText table
  */
- th {
- 	background-color: #eee9e9 !important;
- }
- 
- .ui-inputfield {
- 	color: black !important;
- }
- .ui-column-customfilter{
-  	color: black !important;
- 
- }
+th {
+	background-color: #eee9e9 !important;
+}
+
+.ui-inputfield {
+	color: black !important;
+}
+
+.ui-column-customfilter {
+	color: black !important;
+}
+
 .ui-state-default {
 	font-size: 18px;
 	text-align: center !important;
@@ -79,13 +105,13 @@
 }
 
 .id-column {
-	width: 10%;
+	width: 5%;
 	margin: 2% !important;
 	text-align: center;
 }
 
 .name-column {
-	width: 20% !important;
+	width: 30% !important;
 	padding-left: 50px !important;
 	text-align: center;
 }
@@ -104,7 +130,8 @@
 
 .action-column {
 	width: 15%;
-	margin-right: 3% !important; padding-left : 10px !important;
+	margin-right: 3% !important;
+	padding-left: 10px !important;
 	text-align: center;
 	padding-left: 10px !important;
 }
@@ -153,4 +180,14 @@
 .select-menu {
 	font-size: 15px;
 	font-weight: bold;
+}
+
+.search {
+	width: 50%;
+	margin-left: 80%;
+	display: flex;
+}
+
+.ui-inputtext {
+	width: 30%;
 }

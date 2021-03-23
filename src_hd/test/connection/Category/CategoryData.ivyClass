@@ -1,6 +1,0 @@
-CategoryData #class
-test.connection.Category #namespace
-categories java.util.List<model.Category> #field
-categories PERSISTENT #fieldModifier
-category model.Category #field
-category PERSISTENT #fieldModifier

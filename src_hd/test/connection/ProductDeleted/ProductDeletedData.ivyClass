@@ -1,0 +1,6 @@
+ProductDeletedData #class
+test.connection.ProductDeleted #namespace
+listDeleted java.util.List<model.Product> #field
+listDeleted PERSISTENT #fieldModifier
+product model.Product #field
+product PERSISTENT #fieldModifier

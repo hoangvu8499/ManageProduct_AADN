@@ -1,4 +1,4 @@
 HomePageData #class
-test.connection #namespace
+test.connection.HomePage #namespace
 listCategory java.util.List<model.Category> #field
 listCategory PERSISTENT #fieldModifier
