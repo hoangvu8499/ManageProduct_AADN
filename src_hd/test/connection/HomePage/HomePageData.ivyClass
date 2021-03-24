@@ -2,3 +2,11 @@ HomePageData #class
 test.connection.HomePage #namespace
 listCategory java.util.List<model.Category> #field
 listCategory PERSISTENT #fieldModifier
+listProduct java.util.List<model.Product> #field
+listProduct PERSISTENT #fieldModifier
+userLogin model.UserEntity #field
+userLogin PERSISTENT #fieldModifier
+cart model.CartEntity #field
+cart PERSISTENT #fieldModifier
+productAddCart model.Product #field
+productAddCart PERSISTENT #fieldModifier

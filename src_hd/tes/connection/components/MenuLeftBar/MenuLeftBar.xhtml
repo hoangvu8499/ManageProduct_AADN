@@ -6,19 +6,21 @@
 	xmlns:ic="http://ivyteam.ch/jsf/component"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+
 <cc:interface componentType="IvyComponent">
-	<!-- Khai bao cac tham so trong nay -->
 
 </cc:interface>
 
 <cc:implementation>
 
-	<div class="layout-menu-leftbar">
-		<h:form>
+	<div class="wrapper-menu">
+		<div class="mainMenu">
 			<ui:repeat value="#{data.categoryList}" var="category">
-				<h:commandButton value="#{category.name}" />
+				<li class="item" id="category">
+					<a href="#account" class="btn">#{category.name}</a>
+				</li>
 			</ui:repeat>
-		</h:form>
+		</div>
 	</div>
 
 

@@ -2,3 +2,5 @@ HomePageData #class
 test.connection #namespace
 listCategory java.util.List<model.Category> #field
 listCategory PERSISTENT #fieldModifier
+cart model.CartEntity #field
+cart PERSISTENT #fieldModifier

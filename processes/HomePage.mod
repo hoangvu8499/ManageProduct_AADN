@@ -51,10 +51,14 @@ He0 f2 @|UserDialogIcon #fIcon
 He0 f4 480 64 561 64 #arcP
 He0 f5 actionTable 'out=in;
 ' #txt
-He0 f5 actionCode 'import dao.CategoryDao;
+He0 f5 actionCode 'import dao.CartDao;
+import dao.CategoryDao;
 CategoryDao categoryDao = new dao.CategoryDao();
+CartDao cartDao = new dao.CartDao();
 
-in.listCategory = categoryDao.getAll();' #txt
+// Dang mac dinh User login co id = 1;
+//in.cart = cartDao.getNewCart(1);
+//in.listCategory = categoryDao.getAll();' #txt
 He0 f5 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>

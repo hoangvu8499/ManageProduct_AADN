@@ -2,7 +2,9 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -16,7 +18,7 @@ public class CartEntity extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(mappedBy = "cart")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL)
 	private List<OrderCart> orderCartList;
 
 	public UserEntity getUser() {
@@ -33,6 +35,15 @@ public class CartEntity extends BaseEntity {
 
 	public void setOrderCartList(List<OrderCart> orderCartList) {
 		this.orderCartList = orderCartList;
+	}
+
+	public CartEntity(UserEntity user) {
+		super();
+		this.user = user;
+	}
+
+	public CartEntity() {
+		super();
 	}
 
 }

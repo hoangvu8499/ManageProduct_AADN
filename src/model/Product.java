@@ -26,9 +26,6 @@ public class Product extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "id_category", nullable = false)
 	private Category category;
-
-	@OneToOne(mappedBy = "product")
-	private OrderCart orderCart;
 	
 	@OneToMany(mappedBy = "product")
 	private List<ImageProduct> imageList;
@@ -64,14 +61,6 @@ public class Product extends BaseEntity {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public OrderCart getOrderCart() {
-		return orderCart;
-	}
-
-	public void setOrderCart(OrderCart orderCart) {
-		this.orderCart = orderCart;
 	}
 
 	public List<ImageProduct> getImageList() {

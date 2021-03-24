@@ -22,3 +22,105 @@
 .cart {
 	margin-left: 5%;
 }
+
+.menu {
+	width: 100%;
+	margin-left: 10%;
+}
+
+.menu-leftbar {
+	margin-top: 2%;
+	margin-left: 6%;
+	border-right: 2px solid black;
+	width: 80%;
+	margin-left: 6%;
+}
+
+.list-item {
+	background-color: #d5d6df;
+}
+
+.item-menu {
+	display: block;
+	margin-bottom: 30%;
+	font-size: 15px;
+	text-align: center;
+	font-family: serif;
+	font-weight: bold;
+	padding-top: 5%;
+}
+
+.menu-header {
+	font-family: serif;
+	font-weight: bold;
+	font-size: 20px;
+	border-bottom: 1px solid;
+}
+
+.product {
+	width: 100%;
+	border: 1px solid;
+}
+
+.product-list-item {
+	display: flex;
+}
+
+.img-product {
+	width: 20%;
+}
+
+.product-list-detail {
+	padding: 5%;
+	margin-left: 5%; width : 45%; font-size : 15px;
+	font-family: cursive;
+	font-size: 15px;
+	width: 45%;
+}
+
+.product-list-action {
+	display: flex;
+	width: 25%; flex-direction : column;
+	font-weight: normal;
+	font-size: 14px;
+	margin-left: 3%;
+	margin-top: 5%;
+	flex-direction: column;
+}
+
+.product-price {
+	font-family: cursive;
+	font-size: 15px;
+	padding: 3%;
+}
+
+.wrapper-menu {
+	position: absolute;
+	margin-top: 10%;
+	margin-left: 10%;
+	transform: translate(-50%, -50%);
+}
+
+.mainMenu {
+	width: 250px;
+	display: block;
+	margin: 20%;
+}
+
+::marker {
+	color: white;
+}
+
+.btn {
+	display: block;
+	padding: 15px 20px;
+	background-color: #ff6f61;
+	color: #fff;
+	position: relative;
+	border-radius: 4px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 15px;
+	width: 80%;
+}
+

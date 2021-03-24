@@ -1,9 +1,13 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 //import javax.persistence.TypedQuery;
 //import javax.persistence.criteria.CriteriaBuilder;
@@ -15,14 +19,7 @@ import org.hibernate.jpa.HibernateEntityManager;
 import model.Category;
 import model.Product;
 
-public class ProductDao {
-	protected String getPersistenceIdentifier() {
-		return "PersistenceTest";
-	}
-
-	protected HibernateEntityManager getEM() {
-		return IvyEntityManager.getInstance().getIvyEntityManager(getPersistenceIdentifier());
-	}
+public class ProductDao extends BaseDao {
 
 	public List<Product> getAll() {
 		List<Product> listProduct = new ArrayList<>();
@@ -58,7 +55,7 @@ public class ProductDao {
 	public Boolean checkExist(Product product) {
 		List<Product> listProduct = new ArrayList<>();
 		Query query = getEM().createQuery(
-				"SELECT p FROM Product p WHERE p.name = :name and p.category.id = :idCategory and p.deleted=null ",
+				"SELECT p FROM Product p WHERE p.name = :name AND p.category.id = :idCategory AND p.deleted=null ",
 				Product.class);
 		query.setParameter("name", product.getName());
 		query.setParameter("idCategory", product.getCategory().getId());
@@ -73,6 +70,13 @@ public class ProductDao {
 		List<Product> listProduct = new ArrayList<>();
 		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted!=null ", Product.class)
 				.getResultList();
+		return listProduct;
+	}
+	
+	public List<Product> getNewProduct() {
+		List<Product> listProduct = new ArrayList<>();
+		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted=null ORDER BY id DESC ", Product.class)
+				.setMaxResults(5).getResultList();
 		return listProduct;
 	}
 
