@@ -28,7 +28,52 @@
 					</div>
 					<div class="ui-g-7">
 						<h:form id="form" styleClass="form-product">
-							<p:repeat value="#{data.listProduct}" var="product">
+							<p:dataTable id="theTable" widgetVar="theTable" paginator="true" styleClass="table"
+								paginatorPosition="bottom" rows="4"
+								rowsPerPageTemplate="{ShowAll|'All'},4,6,8"
+								value="#{data.listProduct}" var="product">
+
+								<p:column headerText="Select Product">
+									<div class="product">
+										<div class="product-list-item">
+											<h:graphicImage styleClass="img-product"
+												name="layouts/images/6.jpg" alt="image-product" />
+
+											<div class="product-list-detail">
+												<div class="product-category">
+													<i class="fa fa-list-ol" /> <span>#{product.category.name}</span>
+												</div>
+												<div class="product-name">
+													<i class="fa fa-ticket" /> <span>#{product.name}</span>
+												</div>
+												<div class="product-description">
+													<i class="fa fa-credit-card" /> <span>#{product.cost}
+														đ</span>
+												</div>
+											</div>
+											<div class="product-list-action">
+												<h:outputText value="#{product.cost}"
+													styleClass="product-price">
+													<f:convertNumber currencySymbol="đ" type="currency" />
+												</h:outputText>
+												<p:commandButton value="Add To Cart"
+													actionListener="#{logic.AddToCart(product)}"
+													update=":menu-top" process="@form"
+													icon="fa fa-fw fa-cart-plus">
+												</p:commandButton>
+											</div>
+										</div>
+									</div>
+								</p:column>
+							</p:dataTable>
+
+
+
+
+
+
+
+							<!-- <p:repeat value="#{data.listProduct}" var="product">
 								<div class="product">
 									<div class="product-list-item">
 										<h:graphicImage styleClass="img-product"
@@ -59,7 +104,8 @@
 										</div>
 									</div>
 								</div>
-							</p:repeat>
+							</p:repeat> -->
+
 						</h:form>
 					</div>
 				</div>

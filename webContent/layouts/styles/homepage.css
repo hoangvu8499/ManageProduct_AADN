@@ -116,6 +116,7 @@
 }
 
 .wrapper-menu {
+	margin-top:10%;
 	display: flex;
 }
 
@@ -156,9 +157,9 @@
 .total-money {
 	font-family: cursive;
 	font-weight: bold;
-	font-size: 18px;
-	margin-top: 5px;
-	margin-left: 40%;
+	font-size: 15px;
+	margin-top: 4px;
+	margin-left: 50%;
 }
 
 .table-detail-cart {
@@ -166,8 +167,8 @@
 }
 
 .button-amount {
-	margin-right: 5px !important;
-	margin-left: 5px;
+	margin-right: 5% !important;
+	margin-left: 5% !important;
 	text-align: center !important;
 }
 
@@ -178,5 +179,50 @@
     width: 10xp;
     height: 15xp;
 }
+
+th {
+	border-style: none !important;
+}
+
+td {
+	padding: 0px !important;
+}
+
+.ui-column-title {
+	font-family: cursive;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.ui-outputlabel {
+	font-size: 15px;
+}
+
+.id-column {
+		width: 10%;
+	
+}
+
+.name-column {
+	width: 20%;
+}
+
+.column-quantity{
+	width: 20%;	
+}
+
+.total-column {
+	width: 15%;
+}
+
+.delete-column {
+	width: 5%;
+}
+
+.cost-column {
+	width: 10%;
+}
+
+
 	
 

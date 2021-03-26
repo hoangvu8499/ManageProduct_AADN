@@ -65,7 +65,7 @@
 						<p:outputLabel id="colTotal" value="#{cartDetail.total} đ" />
 					</p:column>
 
-					<p:column styleClass="total-column">
+					<p:column styleClass="delete-column">
 						<p:commandButton icon="ui-icon-trash" title="Delete this Product"
 							ajax="false">
 							<p:ajax listener="#{logic.deleteProduct(cartDetail)}"

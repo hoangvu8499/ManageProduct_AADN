@@ -77,7 +77,7 @@ public class ProductDao extends BaseDao {
 		List<Product> listProduct = new ArrayList<>();
 		listProduct = getEM()
 				.createQuery("SELECT p FROM Product p WHERE p.deleted=null ORDER BY id DESC ", Product.class)
-				.setMaxResults(5).getResultList();
+				.setMaxResults(8).getResultList();
 		return listProduct;
 	}
 
