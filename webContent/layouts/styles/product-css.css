@@ -5,15 +5,42 @@
 	height: 400px !important;
 }
 
-/* .ui-dialog-titlebar{
-	background-color: #f8a56e !important;
-} */
+.content-sidebar {
+	width: 100%;
+	display: flex !important;
+}
+
+.sidebar {
+	width: 20%;
+	height: max-content;
+	border: 2px solid black;
+	margin-top: 8%;
+	margin-right: 5%;
+	margin-left: 5%;
+}
+
+.title-menu {
+	padding-left: 40%;
+	padding-top: 5%;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.container {
+	width: 80% !important;
+}
+
+.table {
+	width: 80%;
+	border: 2px solid black;
+}
 
 .title-form-create {
 	text-align: center;
-	font-size:30px;
-	font-weight:bold;
+	font-size: 30px;
+	font-weight: bold;
 	font-family: fantasy;
+	color: #1139eb;
 	border-bottom: 1px solid black;
 	margin-bottom: 35px;
 }
@@ -46,10 +73,121 @@
 
 .button-create {
 	margin-bottom: 15px;
+	margin-left: 100px;
+}
+
+.button-edit {
+	margin-bottom: 15px;
 	margin-left: 130px;
 }
 
-.id-column {
-	
+/*  Class nay cua cai headerText table
+ */
+th {
+	background-color: #eee9e9 !important;
 }
 
+.ui-inputfield {
+	color: black !important;
+}
+
+.ui-column-customfilter {
+	color: black !important;
+}
+
+.ui-state-default {
+	font-size: 18px;
+	text-align: center !important;
+}
+
+.ui-messages-fatal {
+	background-color: #ff0000 !important;
+}
+
+.id-column {
+	width: 5%;
+	margin: 2% !important;
+	text-align: center;
+}
+
+.name-column {
+	width: 30% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.cost-column {
+	width: 20% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.category-column {
+	width: 20% !important;
+	padding-left: 50px !important;
+	text-align: center;
+}
+
+.action-column {
+	width: 15%;
+	margin-right: 3% !important;
+	padding-left: 10px !important;
+	text-align: center;
+	padding-left: 10px !important;
+}
+
+.action-button-edit {
+	margin-left: 10px !important;
+}
+
+.title-form-edit {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: fantasy;
+	border-bottom: 1px solid black;
+	margin-bottom: 35px;
+}
+
+.edit-id {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-name {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-cost {
+	margin-left: 50px;
+	margin-bottom: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.edit-category {
+	margin-left: 50px;
+	margin-bottom: 35px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.select-menu {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.search {
+	width: 50%;
+	margin-left: 80%;
+	display: flex;
+}
+
+.ui-inputtext {
+	width: 30%;
+}

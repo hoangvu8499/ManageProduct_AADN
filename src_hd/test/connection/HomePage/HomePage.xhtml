@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/homepage.xhtml">
+		<ui:define name="title">HomePage</ui:define>
+		<ui:define name="content">
+			<div class="content-page">
+				<div class="header-menu-top">
+					<h:form id="menu-top">
+						<ic:tes.connection.components.MenuHeader cart="#{data.cart}">
+						</ic:tes.connection.components.MenuHeader>
+					</h:form>
+				</div>
+				<div class="content-body">
+					<div class="ui-g-3">
+						<h:form id="menu-leftbar">
+							<ic:tes.connection.components.MenuLeftBar
+								buttonGetDataCategory="#{logic.getDataCategory}"
+								listCategory="#{data.listCategory}">
+							</ic:tes.connection.components.MenuLeftBar>
+
+						</h:form>
+					</div>
+					<div class="ui-g-7">
+						<h:form id="form" styleClass="form-product">
+							<p:repeat value="#{data.listProduct}" var="product">
+								<div class="product">
+									<div class="product-list-item">
+										<h:graphicImage styleClass="img-product"
+											name="layouts/images/6.jpg" alt="image-product" />
+
+										<div class="product-list-detail">
+											<div class="product-category">
+												<i class="fa fa-list-ol" /> <span>#{product.category.name}</span>
+											</div>
+											<div class="product-name">
+												<i class="fa fa-ticket" /> <span>#{product.name}</span>
+											</div>
+											<div class="product-description">
+												<i class="fa fa-credit-card" /> <span>#{product.cost}
+													đ</span>
+											</div>
+										</div>
+										<div class="product-list-action">
+											<h:outputText value="#{product.cost}"
+												styleClass="product-price">
+												<f:convertNumber currencySymbol="đ" type="currency" />
+											</h:outputText>
+											<p:commandButton value="Add To Cart"
+												actionListener="#{logic.AddToCart(product)}"
+												update=":menu-top" process="@form"
+												icon="fa fa-fw fa-cart-plus">
+											</p:commandButton>
+										</div>
+									</div>
+								</div>
+							</p:repeat>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

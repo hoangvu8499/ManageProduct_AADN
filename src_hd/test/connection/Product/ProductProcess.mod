@@ -43,7 +43,7 @@ Ps0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f0 51 67 26 26 -16 15 #rect
+Ps0 f0 43 67 26 26 -16 15 #rect
 Ps0 f0 @|UdInitIcon #fIcon
 Ps0 f1 411 67 26 26 0 12 #rect
 Ps0 f1 @|UdProcessEndIcon #fIcon
@@ -57,18 +57,18 @@ Ps0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f3 51 579 26 26 -15 15 #rect
+Ps0 f3 43 507 26 26 -15 15 #rect
 Ps0 f3 @|UdEventIcon #fIcon
-Ps0 f4 219 579 26 26 0 12 #rect
+Ps0 f4 411 507 26 26 0 12 #rect
 Ps0 f4 @|UdExitEndIcon #fIcon
-Ps0 f5 77 592 219 592 #arcP
+Ps0 f5 69 520 411 520 #arcP
 Ps0 f6 actionTable 'out=in;
 ' #txt
 Ps0 f6 actionCode 'import dao.CategoryDao;
 import dao.ProductDao;
 import model.Product;
 out.product = new Product();
-
+out.editProduct = new Product();
 ProductDao productDao = new dao.ProductDao();
 CategoryDao categoryDao = new dao.CategoryDao();
 in.products = productDao.getAll();
@@ -82,7 +82,7 @@ Ps0 f6 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 ' #txt
 Ps0 f6 176 58 112 44 -29 -8 #rect
 Ps0 f6 @|StepIcon #fIcon
-Ps0 f7 77 80 176 80 #arcP
+Ps0 f7 69 80 176 80 #arcP
 Ps0 f2 288 80 411 80 #arcP
 Ps0 f8 guid 1783ABDC7D13060F #txt
 Ps0 f8 method save(model.Product) #txt
@@ -97,47 +97,75 @@ Ps0 f8 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f8 51 179 26 26 -25 15 #rect
+Ps0 f8 43 283 26 26 -25 15 #rect
 Ps0 f8 @|UdMethodIcon #fIcon
 Ps0 f9 actionTable 'out=in;
 ' #txt
-Ps0 f9 actionCode 'import dao.CategoryDao;
+Ps0 f9 actionCode 'import util.MessageUtil;
+import org.primefaces.context.RequestContext;
+import javax.faces.context.FacesContext;
+import dao.CategoryDao;
+import model.Category;
 import dao.ProductDao;
 import model.Product;
-import CategoryDao;
+import javax.faces.application.FacesMessage;
 
 CategoryDao categoryDao = new dao.CategoryDao();
 ProductDao dao = new dao.ProductDao();
 
-dao.save(in.product);
-out.product = new Product();
-in.categories = categoryDao.getAll();
-' #txt
+//Validation Product
+if(in.product.name.isEmpty()){
+    FacesContext.getCurrentInstance().addMessage("form:messageEdit",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_NAME_IS_NULL,
+			MessageUtil.MESSAGE_PRODUCT_NAME_IS_NULL));
+//  RequestContext.getCurrentInstance().execute("PF(''editDialog'').show()");
+
+}else{
+	
+	if(dao.checkExist(in.product) == false){
+		FacesContext.getCurrentInstance().addMessage("form:messageEdit",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_EXISTS,
+			MessageUtil.MESSAGE_PRODUCT_EXISTS));
+	}else{
+		dao.save(in.product);
+		out.product = new Product();
+		
+		in.products = dao.getAll();
+		in.categories = categoryDao.getAll();
+		RequestContext.getCurrentInstance().execute("PF(''editDialog'').hide()");
+		RequestContext.getCurrentInstance().update("form");
+	}
+	
+}' #txt
 Ps0 f9 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
-        <name>save</name>
+        <name>Edit&#13;
+</name>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f9 176 170 112 44 -13 -8 #rect
+Ps0 f9 184 274 112 44 -10 -16 #rect
 Ps0 f9 @|StepIcon #fIcon
-Ps0 f10 411 179 26 26 0 12 #rect
+Ps0 f10 403 283 26 26 0 12 #rect
 Ps0 f10 @|UdProcessEndIcon #fIcon
-Ps0 f11 77 192 176 192 #arcP
-Ps0 f12 288 192 411 192 #arcP
+Ps0 f11 69 296 184 296 #arcP
+Ps0 f12 296 296 403 296 #arcP
 Ps0 f13 actionTable 'out=in;
 ' #txt
-Ps0 f13 actionCode 'import dao.CategoryDao;
+Ps0 f13 actionCode 'import model.Product;
+import dao.CategoryDao;
 import dao.ProductDao;
 
 CategoryDao categoryDao = new dao.CategoryDao();
 
 ProductDao dao = new dao.ProductDao();
-in.product.active=false;
+in.product.deleted = new Date();
 dao.save(in.product);
 in.products = dao.getAll();
-in.categories = categoryDao.getAll();' #txt
+in.categories = categoryDao.getAll();
+out.product = new Product();
+' #txt
 Ps0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
@@ -145,9 +173,9 @@ Ps0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f13 168 442 112 44 -17 -8 #rect
+Ps0 f13 184 402 112 44 -17 -8 #rect
 Ps0 f13 @|StepIcon #fIcon
-Ps0 f14 403 451 26 26 0 12 #rect
+Ps0 f14 403 411 26 26 0 12 #rect
 Ps0 f14 @|UdProcessEndIcon #fIcon
 Ps0 f15 guid 1783ACCAC40FC41F #txt
 Ps0 f15 method delete(model.Product) #txt
@@ -162,13 +190,14 @@ Ps0 f15 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f15 51 451 26 26 -25 15 #rect
+Ps0 f15 43 411 26 26 -25 15 #rect
 Ps0 f15 @|UdMethodIcon #fIcon
-Ps0 f16 77 464 168 464 #arcP
-Ps0 f17 280 464 403 464 #arcP
+Ps0 f16 69 424 184 424 #arcP
+Ps0 f17 296 424 403 424 #arcP
 Ps0 f18 actionTable 'out=in;
 ' #txt
-Ps0 f18 actionCode 'import org.primefaces.context.RequestContext;
+Ps0 f18 actionCode 'import util.MessageUtil;
+import org.primefaces.context.RequestContext;
 import javax.faces.context.FacesContext;
 import dao.CategoryDao;
 import model.Category;
@@ -180,31 +209,39 @@ CategoryDao categoryDao = new dao.CategoryDao();
 ProductDao dao = new dao.ProductDao();
 
 //Validation Product
-//if(in.product.name.isBlank() || in.product.cost <0){
-//	FacesContext.getCurrentInstance().addMessage(null, 
-//					new javax.faces.application.FacesMessage(FacesMessage.SEVERITY_FATAL, 
-//					"Fatal Message","Fatal Message"));
-//}
-
-in.product.active = true;
-dao.save(in.product);
-out.product = new Product();
-
-in.products = dao.getAll();
-in.categories = categoryDao.getAll();
+if(in.product.name.isEmpty()){
+	FacesContext.getCurrentInstance().addMessage("form:messageCreate",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_NAME_IS_NULL,
+			MessageUtil.MESSAGE_PRODUCT_NAME_IS_NULL));
+//  RequestContext.getCurrentInstance().execute("PF(''dlg'').show()");
+}else{
+	if(dao.checkExist(in.product) == false){
+		FacesContext.getCurrentInstance().addMessage("form:messageCreate",
+			new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageUtil.MESSAGE_PRODUCT_EXISTS,
+			MessageUtil.MESSAGE_PRODUCT_EXISTS));
+	}else{
+		dao.save(in.product);
+		out.product = new Product();
+		in.products = dao.getAll();
+		in.categories = categoryDao.getAll();
+		RequestContext.getCurrentInstance().execute("PF(''dlg'').hide()");
+		RequestContext.getCurrentInstance().update("form");	
+	}
+	
+}
 
 //RequestContext.getCurrentInstance().execute("PF(''dlg'').hide()");
 ' #txt
 Ps0 f18 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
-        <name>save</name>
+        <name>Create</name>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f18 192 290 112 44 -13 -8 #rect
+Ps0 f18 176 154 112 44 -18 -8 #rect
 Ps0 f18 @|StepIcon #fIcon
-Ps0 f19 419 299 26 26 0 12 #rect
+Ps0 f19 419 163 26 26 0 12 #rect
 Ps0 f19 @|UdProcessEndIcon #fIcon
 Ps0 f20 guid 1783E5ABC5567A88 #txt
 Ps0 f20 method createProduct(model.Product) #txt
@@ -219,10 +256,10 @@ Ps0 f20 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ps0 f20 51 299 26 26 -25 15 #rect
+Ps0 f20 43 163 26 26 -25 15 #rect
 Ps0 f20 @|UdMethodIcon #fIcon
-Ps0 f22 304 312 419 312 #arcP
-Ps0 f23 77 312 192 312 #arcP
+Ps0 f22 288 176 419 176 #arcP
+Ps0 f23 69 176 176 176 #arcP
 >Proto Ps0 .type test.connection.Product.ProductData #txt
 >Proto Ps0 .processKind HTML_DIALOG #txt
 >Proto Ps0 -8 -8 16 16 16 26 #rect
