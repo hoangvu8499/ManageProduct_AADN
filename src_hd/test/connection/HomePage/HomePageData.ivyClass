@@ -10,3 +10,7 @@ cart model.CartEntity #field
 cart PERSISTENT #fieldModifier
 productAddCart model.Product #field
 productAddCart PERSISTENT #fieldModifier
+readTotalMoney String #field
+readTotalMoney PERSISTENT #fieldModifier
+category model.Category #field
+category PERSISTENT #fieldModifier

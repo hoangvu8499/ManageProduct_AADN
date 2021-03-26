@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import model.OrderCart;
 
 public class OrderCartDao extends BaseDao {
@@ -41,14 +42,22 @@ public class OrderCartDao extends BaseDao {
 	}
 
 	public OrderCart findByIdProductAndIdCart(Long idProduct, Long idCart) {
-		Query query = getEM(). createQuery(
+		Query query = getEM().createQuery(
 				"SELECT p FROM OrderCart p WHERE p.product.id = :idProduct and p.cart.id = :idCart ", OrderCart.class);
 		query.setParameter("idProduct", idProduct);
 		query.setParameter("idCart", idCart);
-		if(query.getResultList() == null || query.getResultList().isEmpty()) {
+		if (query.getResultList() == null || query.getResultList().isEmpty()) {
 			return null;
 		}
 		return (OrderCart) query.getResultList().get(0);
+	}
+
+	public void deleteOrderCart(Long id) {
+		OrderCart orderCart = findById(id);
+		getEM().getTransaction().begin();
+		getEM().remove(orderCart);
+		getEM().getTransaction().commit();
+		getEM().close();
 	}
 
 }

@@ -1,4 +1,6 @@
 MenuHeaderData #class
 tes.connection.components.MenuHeader #namespace
-cart model.CartEntity #field
-cart PERSISTENT #fieldModifier
+orderCart model.OrderCart #field
+orderCart PERSISTENT #fieldModifier
+cartEntity model.CartEntity #field
+cartEntity PERSISTENT #fieldModifier

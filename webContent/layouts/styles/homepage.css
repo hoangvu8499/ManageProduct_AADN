@@ -1,3 +1,15 @@
+.content-page {
+	margin: auto;
+}
+.header-menu-top {
+	width: 100%;
+	
+}
+
+.content-body {
+	width: 100%;
+	margin: auto;
+}
 .header {
 	display: flex;
 }
@@ -50,11 +62,17 @@
 	padding-top: 5%;
 }
 
+.menu-top {
+	width: 120%;
+	margin-left: 0.5%;
+}
+
 .menu-header {
 	font-family: serif;
 	font-weight: bold;
 	font-size: 20px;
 	border-bottom: 1px solid;
+	width: 120%;
 }
 
 .product {
@@ -72,7 +90,9 @@
 
 .product-list-detail {
 	padding: 5%;
-	margin-left: 5%; width : 45%; font-size : 15px;
+	margin-left: 5%;
+	width: 45%;
+	font-size: 15px;
 	font-family: cursive;
 	font-size: 15px;
 	width: 45%;
@@ -80,7 +100,8 @@
 
 .product-list-action {
 	display: flex;
-	width: 25%; flex-direction : column;
+	width: 25%;
+	flex-direction: column;
 	font-weight: normal;
 	font-size: 14px;
 	margin-left: 3%;
@@ -95,16 +116,12 @@
 }
 
 .wrapper-menu {
-	position: absolute;
-	margin-top: 10%;
-	margin-left: 10%;
-	transform: translate(-50%, -50%);
+	display: flex;
 }
 
 .mainMenu {
 	width: 250px;
-	display: block;
-	margin: 20%;
+	margin-left: 20%;
 }
 
 ::marker {
@@ -114,13 +131,52 @@
 .btn {
 	display: block;
 	padding: 15px 20px;
-	background-color: #ff6f61;
+	background-color: #ff6f61 !important;
 	color: #fff;
-	position: relative;
 	border-radius: 4px;
 	text-align: center;
 	font-weight: bold;
 	font-size: 15px;
-	width: 80%;
+	width: 100%;
 }
+
+.form-product {
+	margin-left: 5%;
+	width: 100%;
+}
+
+.title-form-cart-detail {
+	font-family: cursive;
+	font-weight: bolder;
+	font-size: 30px;
+	margin-bottom: 5px;
+	color: red;
+}
+
+.total-money {
+	font-family: cursive;
+	font-weight: bold;
+	font-size: 18px;
+	margin-top: 5px;
+	margin-left: 40%;
+}
+
+.table-detail-cart {
+	background-color: #d4d5dc;
+}
+
+.button-amount {
+	margin-right: 5px !important;
+	margin-left: 5px;
+	text-align: center !important;
+}
+
+.ui-button-text-only {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10xp;
+    height: 15xp;
+}
+	
 

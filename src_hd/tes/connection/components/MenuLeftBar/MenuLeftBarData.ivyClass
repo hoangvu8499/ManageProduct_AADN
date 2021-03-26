@@ -1,4 +1,2 @@
 MenuLeftBarData #class
 tes.connection.components.MenuLeftBar #namespace
-categoryList java.util.List<model.Category> #field
-categoryList PERSISTENT #fieldModifier

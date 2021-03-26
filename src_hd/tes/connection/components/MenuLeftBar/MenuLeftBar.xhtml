@@ -8,17 +8,23 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 <cc:interface componentType="IvyComponent">
-
+	<cc:attribute name="listCategory" />
+	<cc:attribute name="buttonGetDataCategory"
+		shortDescription="Get data product of category"
+		method-signature="void handleEvent(javax.faces.event.ActionEvent)" />
 </cc:interface>
 
 <cc:implementation>
 
 	<div class="wrapper-menu">
 		<div class="mainMenu">
-			<ui:repeat value="#{data.categoryList}" var="category">
-				<li class="item" id="category">
-					<a href="#account" class="btn">#{category.name}</a>
-				</li>
+			<ui:repeat value="#{cc.attrs.listCategory}" var="category">
+				<li class="item" id="category"><p:commandButton
+						styleClass="btn"
+						actionListener="#{cc.attrs.buttonGetDataCategory}"
+						value="#{category.name}" update=":form">
+						<f:attribute name="idCategory" value="#{category.id}" />
+					</p:commandButton></li>
 			</ui:repeat>
 		</div>
 	</div>

@@ -21,10 +21,10 @@ public class ProductManageBean {
 		redirect(link);
 	}
 	
-//	public void moveHomePage() throws java.io.IOException {
-//		String link = LinkHelper.getFullLinkBySignature("homePage()");
-//		redirect(link);
-//	}
+	public void moveHomePage() throws java.io.IOException {
+		String link = LinkHelper.getFullLinkBySignature("homePage()");
+		redirect(link);
+	}
 	
 	public void redirect(String uri) throws java.io.IOException {
 		IHttpResponse httpResponse = (IHttpResponse) Ivy.response();

@@ -9,49 +9,59 @@
 	<ui:composition template="/layouts/homepage.xhtml">
 		<ui:define name="title">HomePage</ui:define>
 		<ui:define name="content">
-			<ic:tes.connection.components.MenuHeader cart="#{data.cart}">
-			</ic:tes.connection.components.MenuHeader>
-			<div class="ui-g-12">
-				<div class="ui-g-3">
-					<ic:tes.connection.components.MenuLeftBar>
-					</ic:tes.connection.components.MenuLeftBar>
+			<div class="content-page">
+				<div class="header-menu-top">
+					<h:form id="menu-top">
+						<ic:tes.connection.components.MenuHeader cart="#{data.cart}">
+						</ic:tes.connection.components.MenuHeader>
+					</h:form>
 				</div>
-				<div class="ui-g-9">
-					<h:form id="form" styleClass="form-product">
-						<p:repeat value="#{data.listProduct}" var="product">
-							<div class="product">
-								<div class="product-list-item">
-									<h:graphicImage styleClass="img-product"
-										name="layouts/images/6.jpg" alt="image-product" />
+				<div class="content-body">
+					<div class="ui-g-3">
+						<h:form id="menu-leftbar">
+							<ic:tes.connection.components.MenuLeftBar
+								buttonGetDataCategory="#{logic.getDataCategory}"
+								listCategory="#{data.listCategory}">
+							</ic:tes.connection.components.MenuLeftBar>
 
-									<div class="product-list-detail">
-										<div class="product-category">
-											<i class="fa fa-list-ol" /> <span>#{product.category.name}</span>
+						</h:form>
+					</div>
+					<div class="ui-g-7">
+						<h:form id="form" styleClass="form-product">
+							<p:repeat value="#{data.listProduct}" var="product">
+								<div class="product">
+									<div class="product-list-item">
+										<h:graphicImage styleClass="img-product"
+											name="layouts/images/6.jpg" alt="image-product" />
+
+										<div class="product-list-detail">
+											<div class="product-category">
+												<i class="fa fa-list-ol" /> <span>#{product.category.name}</span>
+											</div>
+											<div class="product-name">
+												<i class="fa fa-ticket" /> <span>#{product.name}</span>
+											</div>
+											<div class="product-description">
+												<i class="fa fa-credit-card" /> <span>#{product.cost}
+													đ</span>
+											</div>
 										</div>
-										<div class="product-name">
-											<i class="fa fa-ticket" /> <span>#{product.name}</span>
+										<div class="product-list-action">
+											<h:outputText value="#{product.cost}"
+												styleClass="product-price">
+												<f:convertNumber currencySymbol="đ" type="currency" />
+											</h:outputText>
+											<p:commandButton value="Add To Cart"
+												actionListener="#{logic.AddToCart(product)}"
+												update=":menu-top" process="@form"
+												icon="fa fa-fw fa-cart-plus">
+											</p:commandButton>
 										</div>
-										<div class="product-description">
-											<i class="fa fa-credit-card" /> <span>#{product.cost}
-												đ</span>
-										</div>
-									</div>
-									<div class="product-list-action">
-										<h:outputText value="#{product.cost}"
-											styleClass="product-price">
-											<f:convertNumber currencySymbol="đ" type="currency" />
-										</h:outputText>
-										<p:commandButton value="Add To Cart"
-											actionListener="#{logic.AddToCart(product)}" process="@form"
-											icon="fa fa-fw fa-cart-plus">
-										</p:commandButton>
-<!-- 										<p:ajax update="menu" />
- -->
 									</div>
 								</div>
-							</div>
-						</p:repeat>
-					</h:form>
+							</p:repeat>
+						</h:form>
+					</div>
 				</div>
 			</div>
 		</ui:define>

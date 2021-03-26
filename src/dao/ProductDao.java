@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -60,23 +60,32 @@ public class ProductDao extends BaseDao {
 		query.setParameter("name", product.getName());
 		query.setParameter("idCategory", product.getCategory().getId());
 		listProduct = query.getResultList();
-		if(listProduct.size() > 0) {
+		if (listProduct.size() > 0) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public List<Product> getProductDeleted() {
 		List<Product> listProduct = new ArrayList<>();
 		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted!=null ", Product.class)
 				.getResultList();
 		return listProduct;
 	}
-	
+
 	public List<Product> getNewProduct() {
 		List<Product> listProduct = new ArrayList<>();
-		listProduct = getEM().createQuery("SELECT p FROM Product p WHERE p.deleted=null ORDER BY id DESC ", Product.class)
+		listProduct = getEM()
+				.createQuery("SELECT p FROM Product p WHERE p.deleted=null ORDER BY id DESC ", Product.class)
 				.setMaxResults(5).getResultList();
+		return listProduct;
+	}
+
+	public List<Product> getByCategory(Long id) {
+		List<Product> listProduct = new ArrayList<>();
+		listProduct = getEM()
+				.createQuery("SELECT p FROM Product p WHERE p.deleted=null and p.category.id = :id ", Product.class)
+				.setParameter("id", id).getResultList();
 		return listProduct;
 	}
 
