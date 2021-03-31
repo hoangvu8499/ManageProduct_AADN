@@ -1,13 +1,25 @@
 .product-dialog {
 	border-radius: 15px !important;
 	border-bottom: 10px solid black !important;
-	width: 400px !important;
-	height: 400px !important;
+	width: 30% !important;
+	height: 43% !important;
+}
+
+.product-dialog-edit {
+	border-radius: 15px !important;
+	border-bottom: 10px solid black !important;
+	width: 40% !important;
+	height: 50% !important;
 }
 
 .content-sidebar {
 	width: 100%;
 	display: flex !important;
+}
+
+.img-upload {
+	margin-left: 10% !important;
+	margin-bottom: 5%;
 }
 
 .sidebar {
@@ -46,29 +58,44 @@
 }
 
 .create-name {
-	margin-left: 50px;
+	margin-left: 10%;
+	margin-right: 10%;
 	margin-bottom: 20px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
+.img-upload {
+	margin-left: 20%;
+	margin-bottom: 50px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.input-text-dialog {
+	width: 100% !important;
+}
+
 .create-cost {
-	margin-left: 50px;
+	margin-left: 10%;
+	margin-right: 10%;
 	margin-bottom: 20px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 .select-category {
-	margin-left: 50px;
+	margin-left: 10%;
+	margin-right: 10%;
 	margin-bottom: 35px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 .select-menu {
-	font-size: 15px;
+	width: 100% !important; font-size : 15px;
 	font-weight: bold;
+	font-size: 15px;
 }
 
 .button-create {
@@ -151,12 +178,14 @@ th {
 
 .edit-id {
 	margin-left: 50px;
+	margin-right: 50px;
 	margin-bottom: 20px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 .edit-name {
+	margin-right: 50px;
 	margin-left: 50px;
 	margin-bottom: 20px;
 	font-size: 15px;
@@ -164,6 +193,7 @@ th {
 }
 
 .edit-cost {
+	margin-right: 50px;
 	margin-left: 50px;
 	margin-bottom: 20px;
 	font-size: 15px;
@@ -171,6 +201,7 @@ th {
 }
 
 .edit-category {
+	margin-right: 50px;
 	margin-left: 50px;
 	margin-bottom: 35px;
 	font-size: 15px;
@@ -190,4 +221,9 @@ th {
 
 .ui-inputtext {
 	width: 30%;
+}
+
+.img-product {
+	width: 15%;
+	height: 15%;
 }

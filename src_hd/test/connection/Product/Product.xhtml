@@ -83,30 +83,35 @@
 
 			<p:dialog id="formCreate" widgetVar="dlg" modal="true"
 				styleClass="product-dialog" appendTo="@(body)" width="60%">
-				<h:form id="createForm">
+				<h:form id="createForm" enctype="multipart/form-data">
 					<div class="title-form-create">CREATE PRODUCT</div>
 					<p:messages />
 					<div class="create-name">
 						<p:outputLabel for="nameCreate">Name: </p:outputLabel>
-						<p:inputText value="#{data.product.name}" id="nameCreate" />
+						<p:inputText value="#{data.product.name}" id="nameCreate" styleClass="input-text-dialog" />
 					</div>
 					<div class="create-cost">
 						<p:outputLabel for="costCreate">Cost: </p:outputLabel>
-						<p:inputText value="#{data.product.cost}" id="costCreate" />
+						<p:inputText value="#{data.product.cost}" id="costCreate" styleClass="input-text-dialog" />
 					</div>
 					<div class="select-category">
 						<div class="selectMenu">
 							<p:outputLabel value="Category: " for="group" />
-							<p:selectOneMenu styleClass="select-menu" id="group"
+							<p:selectOneMenu styleClass="select-menu" id="group" 
 								value="#{data.product.category}" converter="pojoConverter">
 								<f:selectItems value="#{data.categories}" var="category"
 									itemLabel="#{category.name}" itemValue="#{category}" />
 							</p:selectOneMenu>
 						</div>
 					</div>
+					<div class="img-upload">
+						<p:outputLabel value="Image: " for="group" />
+						<p:fileUpload fileUploadListener="#{logic.handleFileUpload}"
+							auto="true" id="fileUpload" styleClass="file-upload" />
+					</div>
 					<div class="button-create">
 						<p:commandButton id="save" value="Save" update="createForm"
-							actionListener="#{logic.createProduct(data.product)}">
+							actionListener="#{logic.createProductNew}">
 						</p:commandButton>
 						<p:commandButton id="close" value="Close"
 							oncomplete="PF('dlg').hide();" process="@this">
@@ -116,7 +121,7 @@
 			</p:dialog>
 
 			<p:dialog id="dlgEdit" widgetVar="editDialog" modal="true"
-				styleClass="product-dialog" appendTo="@(body)">
+				styleClass="product-dialog-edit" appendTo="@(body)">
 
 				<h:form id="editForm">
 					<div class="title-form-edit">EDIT PRODUCT</div>
@@ -125,23 +130,30 @@
 					<p:outputPanel id="productDetail">
 						<div class="edit-id">
 							<p:outputLabel>ID: </p:outputLabel>
-							<p:inputText disabled="true" value="#{data.editProduct.id}" />
+							<p:inputText disabled="true" value="#{data.editProduct.id}"  styleClass="input-text-dialog"/>
 						</div>
 						<div class="edit-name">
 							<p:outputLabel>Name: </p:outputLabel>
-							<p:inputText value="#{data.editProduct.name}" />
+							<p:inputText value="#{data.editProduct.name}" styleClass="input-text-dialog" />
 						</div>
 						<div class="edit-cost">
 							<p:outputLabel>Cost: </p:outputLabel>
-							<p:inputText value="#{data.editProduct.cost}" />
+							<p:inputText value="#{data.editProduct.cost}" styleClass="input-text-dialog" />
 						</div>
 						<div class="edit-category">
 							<p:outputLabel>Category: </p:outputLabel>
-							<p:selectOneMenu value="#{data.editProduct.category}"
+							<p:selectOneMenu value="#{data.editProduct.category}" styleClass="input-text-dialog"
 								converter="pojoConverter">
 								<f:selectItems value="#{data.categories}" var="category"
 									itemLabel="#{category.name}" itemValue="#{category}" />
 							</p:selectOneMenu>
+						</div>
+						<div class="img-upload">
+							<p:outputLabel value="Image: " />
+							<p:graphicImage styleClass="img-product"
+								name="layouts/images/#{data.editProduct.image}" alt="#{product.image}" />
+							<p:fileUpload fileUploadListener="#{logic.handleFileUpload}"
+								auto="true" id="fileUpload" styleClass="file-upload" />
 						</div>
 
 						<div class="button-edit">

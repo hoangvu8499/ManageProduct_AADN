@@ -8,9 +8,17 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 <cc:interface componentType="IvyComponent">
 	<cc:attribute name="cart" />
+	<cc:attribute name="buttonClicked"
+		shortDescription="Click event will be fired on the callback when the button is cklicked."
+		method-signature="void handleEvent(javax.faces.event.FacesEvent)" />
+
+	<cc:attribute name="buttonDeleteOrderCart"
+		shortDescription="Delete Order Cart"
+		method-signature="void handleEvent(javax.faces.event.ActionEvent)" />
 </cc:interface>
 
 <cc:implementation>
+
 	<h:form id="form-menu" styleClass="form-menu">
 		<p:commandButton styleClass="button cart"
 			onclick="PF('dlg-show-cart').show();" id="button-infor-cart"
@@ -18,10 +26,13 @@
 			value="Cart(#{cc.attrs.cart.orderCartList.size()})">
 		</p:commandButton>
 		<p:commandButton styleClass="button home" icon="fa fa-home"
-			value="HomePage" action="#{productManageBean.moveHomePage}" />
-		<p:commandButton styleClass="button home" type="button" action="#{productManageBean.moveDeletedPage}"
+			value="HomePage" actionListener="#{productManageBean.moveHomePage()}">
+		</p:commandButton>
+		<p:commandButton styleClass="button home"
+			actionListener="#{productManageBean.moveProductPage()}"
 			icon="fa fa-fw fa-user-secret" value="Admin" />
 	</h:form>
+
 
 	<p:dialog id="dlg-show-cart" widgetVar="dlg-show-cart" modal="true"
 		styleClass="show-cart" appendTo="@(body)" width="60%">
@@ -49,7 +60,7 @@
 					<p:column headerText="Quantity" styleClass="column-quantity">
 						<p:commandButton value="-" styleClass="button-amount">
 							<p:ajax listener="#{logic.minusProduct(cartDetail)}"
-								update=":menu-top:j_id_m:form-cart-detail" />
+								update="j_id_l:form-cart-detail" />
 						</p:commandButton>
 
 						<p:outputLabel id="colQuantity" value="#{cartDetail.amount}" />
@@ -57,7 +68,7 @@
 
 						<p:commandButton value="+" styleClass="button-amount">
 							<p:ajax listener="#{logic.plusProduct(cartDetail)}"
-								update=":menu-top:j_id_m:form-cart-detail" />
+								update="j_id_l:form-cart-detail" />
 						</p:commandButton>
 					</p:column>
 
@@ -66,14 +77,14 @@
 					</p:column>
 
 					<p:column styleClass="delete-column">
-						<p:commandButton icon="ui-icon-trash" title="Delete this Product"
-							ajax="false">
-							<p:ajax listener="#{logic.deleteProduct(cartDetail)}"
-								update=":menu-top:j_id_m:form-cart-detail" />
+						<p:commandButton icon="ui-icon-trash" title="Delete this Product" update="j_id_l:form-menu, j_id_l:form-cart-detail"
+							actionListener="#{cc.attrs.buttonDeleteOrderCart}">
+							<f:attribute name="idCartDetail" value="#{cartDetail.id}" />
 						</p:commandButton>
 					</p:column>
 
 				</p:dataTable>
+
 				<div class="total-money">
 					<span>TOTAL MONEY: </span>
 					<div class="number-money">
@@ -82,12 +93,13 @@
 					<div class="string-money">
 						<span>Bằng Chữ: </span> <span>#{cc.attrs.cart.stringTotalMoney}</span>
 					</div>
-
 				</div>
 
 			</div>
 		</h:form>
 	</p:dialog>
-
 </cc:implementation>
+
+
+
 </html>

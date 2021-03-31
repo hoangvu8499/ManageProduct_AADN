@@ -26,6 +26,11 @@ Hs0 @GridStep f15 '' #zField
 Hs0 @PushWFArc f16 '' #zField
 Hs0 @UdProcessEnd f14 '' #zField
 Hs0 @PushWFArc f17 '' #zField
+Hs0 @UdMethod f18 '' #zField
+Hs0 @GridStep f19 '' #zField
+Hs0 @UdProcessEnd f20 '' #zField
+Hs0 @PushWFArc f21 '' #zField
+Hs0 @PushWFArc f22 '' #zField
 >Proto Hs0 Hs0 HomePageProcess #zField
 Hs0 f0 guid 1785D064653CD8C8 #txt
 Hs0 f0 method start() #txt
@@ -52,11 +57,11 @@ Hs0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Hs0 f3 83 435 26 26 -15 15 #rect
+Hs0 f3 83 283 26 26 -15 15 #rect
 Hs0 f3 @|UdEventIcon #fIcon
-Hs0 f4 395 435 26 26 0 12 #rect
+Hs0 f4 435 283 26 26 0 12 #rect
 Hs0 f4 @|UdExitEndIcon #fIcon
-Hs0 f5 109 448 395 448 #arcP
+Hs0 f5 109 296 435 296 #arcP
 Hs0 f6 actionTable 'out=in;
 ' #txt
 Hs0 f6 actionCode 'import dao.CartDao;
@@ -75,7 +80,8 @@ in.listProduct = productDao.getNewProduct();
 in.listCategory = categoryDao.getAll();
 // dang mac dinh user login co id = 1;
 UserEntity userLogin = userDao.findById(1);
-in.cart = cartDao.getNewCart(userLogin.id);' #txt
+in.cart = cartDao.getNewCart(userLogin.id);
+in.idOrderCart = 0;' #txt
 Hs0 f6 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
@@ -126,10 +132,7 @@ if(orderCart.id==0){
 	orderCart.amount = 1;
 	orderCart.total = orderCart.amount * orderCart.product.cost;
 }else{
-	Ivy.log().error("So Luong SP DA Them: "+orderCart.amount);
-	orderCart.amount += 1;
-	Ivy.log().error("So Luong SP DA Them: "+orderCart.amount);
-	
+	orderCart.amount += 1;	
 	orderCart.total = orderCart.amount * orderCart.product.cost;
 }
 in.cart.totalMoney=in.productAddCart.cost;
@@ -176,7 +179,7 @@ Hs0 f13 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Hs0 f13 83 307 26 26 -25 15 #rect
+Hs0 f13 83 531 26 26 -25 15 #rect
 Hs0 f13 @|UdMethodIcon #fIcon
 Hs0 f15 actionTable 'out=in;
 ' #txt
@@ -191,13 +194,65 @@ Hs0 f15 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Hs0 f15 224 298 112 44 -49 -8 #rect
+Hs0 f15 216 522 112 44 -49 -8 #rect
 Hs0 f15 @|StepIcon #fIcon
-Hs0 f16 109 320 224 320 #arcP
+Hs0 f16 109 544 216 544 #arcP
 Hs0 f16 0 0.7072745572953059 0 0 #arcLabel
-Hs0 f14 435 307 26 26 0 12 #rect
+Hs0 f14 427 531 26 26 0 12 #rect
 Hs0 f14 @|UdProcessEndIcon #fIcon
-Hs0 f17 336 320 435 320 #arcP
+Hs0 f17 328 544 427 544 #arcP
+Hs0 f18 guid 1788692FF033A789 #txt
+Hs0 f18 method deleteProductCart(javax.faces.event.ActionEvent) #txt
+Hs0 f18 inParameterDecl '<javax.faces.event.ActionEvent getIdOrderCart> param;' #txt
+Hs0 f18 inActionCode 'import model.OrderCart;
+import ch.ivyteam.ivy.environment.Ivy;
+
+out.idOrderCart = param.getIdOrderCart.getComponent().getAttributes().get("idCartDetail") as Long;
+Ivy.log().error("ID DELETE: "+out.idOrderCart);' #txt
+Hs0 f18 outParameterDecl '<> result;' #txt
+Hs0 f18 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<elementInfo>
+    <language>
+        <name>deleteProductCart</name>
+    </language>
+</elementInfo>
+' #txt
+Hs0 f18 83 659 26 26 -25 15 #rect
+Hs0 f18 @|UdMethodIcon #fIcon
+Hs0 f19 actionTable 'out=in;
+' #txt
+Hs0 f19 actionCode 'import util.MessageUtil;
+import javax.faces.context.FacesContext;
+import dao.CartDao;
+import ch.ivyteam.ivy.environment.Ivy;
+import model.OrderCart;
+import dao.OrderCartDao;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+
+CartDao cartDao = new dao.CartDao();
+OrderCartDao orderCartDao = new OrderCartDao();
+
+OrderCart orderCartDelete = orderCartDao.findById(in.idOrderCart);
+cartDao.deleteDetail(orderCartDelete.cart.id, orderCartDelete);
+
+// Dang mac dinh user login co id =1
+in.cart = cartDao.getNewCart(1);
+
+' #txt
+Hs0 f19 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<elementInfo>
+    <language>
+        <name>delete product cart</name>
+    </language>
+</elementInfo>
+' #txt
+Hs0 f19 224 650 112 44 -50 -8 #rect
+Hs0 f19 @|StepIcon #fIcon
+Hs0 f20 435 659 26 26 0 12 #rect
+Hs0 f20 @|UdProcessEndIcon #fIcon
+Hs0 f21 109 672 224 672 #arcP
+Hs0 f22 336 672 435 672 #arcP
 >Proto Hs0 .type test.connection.HomePage.HomePageData #txt
 >Proto Hs0 .processKind HTML_DIALOG #txt
 >Proto Hs0 -8 -8 16 16 16 26 #rect
@@ -216,3 +271,7 @@ Hs0 f13 mainOut f16 tail #connect
 Hs0 f16 head f15 mainIn #connect
 Hs0 f15 mainOut f17 tail #connect
 Hs0 f17 head f14 mainIn #connect
+Hs0 f18 mainOut f21 tail #connect
+Hs0 f21 head f19 mainIn #connect
+Hs0 f19 mainOut f22 tail #connect
+Hs0 f22 head f20 mainIn #connect

@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import javax.persistence.Query;
@@ -16,9 +16,12 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.jpa.HibernateEntityManager;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import model.CartEntity;
 import model.Category;
+import model.OrderCart;
 import model.Product;
+import util.ReadNumber;
 
 public class CartDao extends BaseDao {
 
@@ -45,7 +48,7 @@ public class CartDao extends BaseDao {
 		}
 	}
 
-	public CartEntity findById(Integer id) {
+	public CartEntity findById(Long id) {
 		getEM().getTransaction().begin();
 		CartEntity cart = getEM().find(CartEntity.class, id);
 		getEM().getTransaction().commit();
@@ -59,6 +62,30 @@ public class CartDao extends BaseDao {
 				CartEntity.class);
 		query.setParameter("userId", userId);
 		return (CartEntity) query.getSingleResult();
+	}
+	
+	public void deleteDetail(Long idCart, OrderCart orderCart) {
+		getEM().getTransaction().begin();
+		CartEntity cart = getEM().find(CartEntity.class, idCart);	
+		Boolean removeCartDetail = false;
+
+		int index =0;
+		int number=0;
+		for(OrderCart element: cart.getOrderCartList()) {
+			if(element.getId().toString().equals(orderCart.getId().toString())) {
+				number = index;
+				removeCartDetail = true;
+			}
+			index+=1;
+		}
+		cart.getOrderCartList().remove(number);
+		if(removeCartDetail == true) {
+			cart.setTotalMoney(cart.getTotalMoney()-orderCart.getTotal());
+			Double totalMoeny = cart.getTotalMoney();
+			cart.setStringTotalMoney(ReadNumber.numberToString(totalMoeny.toString()));
+		}
+		getEM().getTransaction().commit();
+		getEM().close();
 	}
 
 }

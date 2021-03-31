@@ -8,3 +8,7 @@ categories java.util.List<model.Category> #field
 categories PERSISTENT #fieldModifier
 editProduct model.Product #field
 editProduct PERSISTENT #fieldModifier
+fileImage org.primefaces.model.UploadedFile #field
+fileImage PERSISTENT #fieldModifier
+eventImage org.primefaces.event.FileUploadEvent #field
+eventImage PERSISTENT #fieldModifier

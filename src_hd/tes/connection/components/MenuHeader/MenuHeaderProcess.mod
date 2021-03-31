@@ -41,9 +41,9 @@ Ms0 f0 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f0 51 51 26 26 -16 15 #rect
+Ms0 f0 67 75 26 26 -16 15 #rect
 Ms0 f0 @|UdInitIcon #fIcon
-Ms0 f1 387 51 26 26 0 12 #rect
+Ms0 f1 403 75 26 26 0 12 #rect
 Ms0 f1 @|UdProcessEndIcon #fIcon
 Ms0 f3 guid 17861C92D3710100 #txt
 Ms0 f3 actionTable 'out=in;
@@ -55,11 +55,11 @@ Ms0 f3 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f3 51 507 26 26 -15 15 #rect
+Ms0 f3 67 499 26 26 -15 15 #rect
 Ms0 f3 @|UdEventIcon #fIcon
-Ms0 f4 387 507 26 26 0 12 #rect
+Ms0 f4 403 499 26 26 0 12 #rect
 Ms0 f4 @|UdExitEndIcon #fIcon
-Ms0 f5 77 520 387 520 #arcP
+Ms0 f5 93 512 403 512 #arcP
 Ms0 f6 actionTable 'out=in;
 ' #txt
 Ms0 f6 actionCode 'import util.ReadNumber;
@@ -91,7 +91,7 @@ Ms0 f6 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f6 192 146 112 44 -34 -8 #rect
+Ms0 f6 208 170 112 44 -34 -8 #rect
 Ms0 f6 @|StepIcon #fIcon
 Ms0 f7 guid 178620327317A79C #txt
 Ms0 f7 method plusProduct(model.OrderCart) #txt
@@ -106,13 +106,13 @@ Ms0 f7 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f7 51 155 26 26 -64 24 #rect
+Ms0 f7 67 179 26 26 -64 24 #rect
 Ms0 f7 @|UdMethodIcon #fIcon
-Ms0 f8 387 155 26 26 0 12 #rect
+Ms0 f8 403 179 26 26 0 12 #rect
 Ms0 f8 @|UdProcessEndIcon #fIcon
-Ms0 f9 77 168 192 168 #arcP
-Ms0 f10 304 168 387 168 #arcP
-Ms0 f2 77 64 387 64 #arcP
+Ms0 f9 93 192 208 192 #arcP
+Ms0 f10 320 192 403 192 #arcP
+Ms0 f2 93 88 403 88 #arcP
 Ms0 f11 guid 17868CAB8AF9B650 #txt
 Ms0 f11 method minusProduct(model.OrderCart) #txt
 Ms0 f11 inParameterDecl '<model.OrderCart orderCart> param;' #txt
@@ -126,7 +126,7 @@ Ms0 f11 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f11 51 267 26 26 -64 24 #rect
+Ms0 f11 67 291 26 26 -64 24 #rect
 Ms0 f11 @|UdMethodIcon #fIcon
 Ms0 f12 actionTable 'out=in;
 ' #txt
@@ -169,12 +169,12 @@ Ms0 f12 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f12 192 258 112 44 -40 -8 #rect
+Ms0 f12 208 282 112 44 -40 -8 #rect
 Ms0 f12 @|StepIcon #fIcon
-Ms0 f13 387 267 26 26 0 12 #rect
+Ms0 f13 403 291 26 26 0 12 #rect
 Ms0 f13 @|UdProcessEndIcon #fIcon
-Ms0 f14 304 280 387 280 #arcP
-Ms0 f15 77 280 192 280 #arcP
+Ms0 f14 320 304 403 304 #arcP
+Ms0 f15 93 304 208 304 #arcP
 Ms0 f16 guid 17868E3D425F46FB #txt
 Ms0 f16 method deleteProduct(model.OrderCart) #txt
 Ms0 f16 inParameterDecl '<model.OrderCart orderCart> param;' #txt
@@ -188,16 +188,29 @@ Ms0 f16 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f16 51 371 26 26 -25 15 #rect
+Ms0 f16 67 395 26 26 -25 15 #rect
 Ms0 f16 @|UdMethodIcon #fIcon
 Ms0 f17 actionTable 'out=in;
 ' #txt
-Ms0 f17 actionCode 'import model.OrderCart;
+Ms0 f17 actionCode 'import util.MessageUtil;
+import javax.faces.context.FacesContext;
+import dao.CartDao;
+import ch.ivyteam.ivy.environment.Ivy;
+import model.OrderCart;
 import dao.OrderCartDao;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
+CartDao cartDao = new dao.CartDao();
 OrderCartDao orderCartDao = new OrderCartDao();
 
-orderCartDao.deleteOrderCart(in.orderCart.getId());' #txt
+
+cartDao.deleteDetail(in.orderCart.cart.id, in.orderCart);
+
+// Dang mac dinh user login co id =1
+in.cartEntity = cartDao.getNewCart(1);
+
+' #txt
 Ms0 f17 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <elementInfo>
     <language>
@@ -205,12 +218,12 @@ Ms0 f17 @C|.xml '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     </language>
 </elementInfo>
 ' #txt
-Ms0 f17 192 362 112 44 -40 -8 #rect
+Ms0 f17 208 386 112 44 -40 -8 #rect
 Ms0 f17 @|StepIcon #fIcon
-Ms0 f18 387 371 26 26 0 12 #rect
+Ms0 f18 403 395 26 26 0 12 #rect
 Ms0 f18 @|UdProcessEndIcon #fIcon
-Ms0 f19 77 384 192 384 #arcP
-Ms0 f20 304 384 387 384 #arcP
+Ms0 f19 93 408 208 408 #arcP
+Ms0 f20 320 408 403 408 #arcP
 >Proto Ms0 .type tes.connection.components.MenuHeader.MenuHeaderData #txt
 >Proto Ms0 .processKind HTML_DIALOG #txt
 >Proto Ms0 -8 -8 16 16 16 26 #rect

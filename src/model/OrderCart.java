@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity; 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,11 +20,14 @@ public class OrderCart extends BaseEntity {
 	@JoinColumn(name = "product_id")
 	private Product product;
 
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "cart_id", nullable = false)
 	private CartEntity cart;
 
 	private int amount;
+	
+	private Date deleted;
+	
 
 	private Double total;
 
@@ -55,6 +61,14 @@ public class OrderCart extends BaseEntity {
 
 	public void setTotal(Double total) {
 		this.total = total;
+	}
+
+	public Date getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Date deleted) {
+		this.deleted = deleted;
 	}
 
 	public OrderCart(Product product) {

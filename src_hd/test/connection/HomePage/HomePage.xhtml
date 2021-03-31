@@ -10,11 +10,11 @@
 		<ui:define name="title">HomePage</ui:define>
 		<ui:define name="content">
 			<div class="content-page">
-				<div class="header-menu-top">
-					<h:form id="menu-top">
-						<ic:tes.connection.components.MenuHeader cart="#{data.cart}">
-						</ic:tes.connection.components.MenuHeader>
-					</h:form>
+				<div class="header-menu-top" id="menu-top">
+					<ic:tes.connection.components.MenuHeader cart="#{data.cart}"
+						buttonDeleteOrderCart="#{logic.deleteProductCart}">
+					
+					</ic:tes.connection.components.MenuHeader>
 				</div>
 				<div class="content-body">
 					<div class="ui-g-3">
@@ -28,16 +28,17 @@
 					</div>
 					<div class="ui-g-7">
 						<h:form id="form" styleClass="form-product">
-							<p:dataTable id="theTable" widgetVar="theTable" paginator="true" styleClass="table"
-								paginatorPosition="bottom" rows="4"
+							<p:dataTable id="theTable" widgetVar="theTable" paginator="true"
+								styleClass="table" paginatorPosition="bottom" rows="4"
 								rowsPerPageTemplate="{ShowAll|'All'},4,6,8"
 								value="#{data.listProduct}" var="product">
 
 								<p:column headerText="Select Product">
 									<div class="product">
 										<div class="product-list-item">
-											<h:graphicImage styleClass="img-product"
-												name="layouts/images/6.jpg" alt="image-product" />
+											<p:graphicImage styleClass="img-product"
+												name="layouts/images/4.jpg"
+												alt="#{product.image}" />
 
 											<div class="product-list-detail">
 												<div class="product-category">
@@ -57,9 +58,8 @@
 													<f:convertNumber currencySymbol="đ" type="currency" />
 												</h:outputText>
 												<p:commandButton value="Add To Cart"
-													actionListener="#{logic.AddToCart(product)}"
-													update=":menu-top" process="@form"
-													icon="fa fa-fw fa-cart-plus">
+													actionListener="#{logic.AddToCart(product)}" update="j_id_l:form-menu, j_id_l:form-cart-detail"
+													process="@form" icon="fa fa-fw fa-cart-plus">
 												</p:commandButton>
 											</div>
 										</div>

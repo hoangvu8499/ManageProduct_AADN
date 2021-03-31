@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -7,18 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product")
 public class Product extends BaseEntity {
 
-//	@NotNull(message = "Name is Not Null")
+	private String image;
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	private String name;
 
-//	@NotNull(message = "Cost is Not Null")
 	private Float cost;
 
 	private Date deleted;
@@ -26,14 +33,14 @@ public class Product extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "id_category", nullable = false)
 	private Category category;
-	
+
 	@OneToMany(mappedBy = "product")
 	private List<ImageProduct> imageList;
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public Date getDeleted() {
 		return deleted;
 	}
@@ -41,7 +48,6 @@ public class Product extends BaseEntity {
 	public void setDeleted(Date deleted) {
 		this.deleted = deleted;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
@@ -74,7 +80,5 @@ public class Product extends BaseEntity {
 	public Product() {
 		super();
 	}
-	
-	
-	
+
 }

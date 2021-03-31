@@ -38,12 +38,13 @@ public class OrderCartDao extends BaseDao {
 		getEM().getTransaction().begin();
 		OrderCart orderCart = getEM().find(OrderCart.class, id);
 		getEM().getTransaction().commit();
+		getEM().close();
 		return orderCart;
 	}
 
 	public OrderCart findByIdProductAndIdCart(Long idProduct, Long idCart) {
 		Query query = getEM().createQuery(
-				"SELECT p FROM OrderCart p WHERE p.product.id = :idProduct and p.cart.id = :idCart ", OrderCart.class);
+				"SELECT p FROM OrderCart p WHERE p.product.id = :idProduct AND p.cart.id = :idCart ", OrderCart.class);
 		query.setParameter("idProduct", idProduct);
 		query.setParameter("idCart", idCart);
 		if (query.getResultList() == null || query.getResultList().isEmpty()) {
@@ -52,12 +53,18 @@ public class OrderCartDao extends BaseDao {
 		return (OrderCart) query.getResultList().get(0);
 	}
 
-	public void deleteOrderCart(Long id) {
-		OrderCart orderCart = findById(id);
-		getEM().getTransaction().begin();
-		getEM().remove(orderCart);
-		getEM().getTransaction().commit();
-		getEM().close();
+	public void deleteOrderCart(Long id) throws Exception {
+		try {
+			OrderCart orderCart = findById(id);
+			getEM().getTransaction().begin();
+			getEM().remove(orderCart);
+			getEM().flush();
+			getEM().getTransaction().commit();
+		} catch (Exception e) {
+			throw new Exception("Cannot Delete Cart Detail");
+		} finally {
+			getEM().close();
+		}
 	}
 
 }

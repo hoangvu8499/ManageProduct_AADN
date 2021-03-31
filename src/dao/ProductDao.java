@@ -45,10 +45,11 @@ public class ProductDao extends BaseDao {
 		}
 	}
 
-	public Product findById(Integer id) {
+	public Product findById(Long id) {
 		getEM().getTransaction().begin();
 		Product product = getEM().find(Product.class, id);
 		getEM().getTransaction().commit();
+		getEM().close();
 		return product;
 	}
 
@@ -60,7 +61,7 @@ public class ProductDao extends BaseDao {
 		query.setParameter("name", product.getName());
 		query.setParameter("idCategory", product.getCategory().getId());
 		listProduct = query.getResultList();
-		if (listProduct.size() > 0) {
+		if (listProduct.size() > 1) {
 			return false;
 		}
 		return true;

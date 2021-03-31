@@ -22,7 +22,7 @@ public class CartEntity extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.PERSIST)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.PERSIST, orphanRemoval = true)
 	private List<OrderCart> orderCartList;
 
 	public UserEntity getUser() {

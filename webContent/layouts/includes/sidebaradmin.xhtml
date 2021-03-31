@@ -21,7 +21,7 @@
 						<p:panelMenu>
 							<p:submenu label="Product">
 								<p:menuitem value="Product Manage" action="#{productManageBean.moveProductPage()}"/>
-								<p:menuitem value="Deleted" action="#{productManageBean.moveDeletedPage()}"/>
+								<p:menuitem value="Deleted" action="#{productManageBean.moveDeletedPage()}"/>							     	
 							</p:submenu>
 							<p:submenu label="Category">
 								<p:menuitem value="Category Manage"/>
@@ -32,8 +32,8 @@
 								<p:menuitem value="Delete"/>
 							</p:submenu>
 							<p:submenu label=".....">
-								<p:menuitem value="Website"/>
-								<p:menuitem value="Internal"/>
+								<p:menuitem value="Logout"/>
+								<p:menuitem icon="fa fa-home" value="Home" actionListener="#{productManageBean.moveHomePage()}"/>
 							</p:submenu>
 						</p:panelMenu>
 					</h:form>
